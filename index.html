@@ -145,18 +145,9 @@
                 $(document).on('click', '.listItemRight', function () {
                     $('#listEdit').empty();
                     rightGlobalID = this.id;
-                    findObjects(finalResultsForList, rightGlobalID, "", finalResultsForList);
+                    //findObjects(finalResultsForList, rightGlobalID, "", finalResultsForList);
                     findObjects2(finalResultsForList);
                 });
-                
-                $(".display").click(function(){
-                    $(this).hide().siblings(".edit").show().val($(this).text()).focus();
-                });
-
-                $(".edit").focusout(function(){
-                    $(this).hide().siblings(".display").show().text($(this).val());
-                });
-
                 
             });
             
@@ -181,8 +172,11 @@
     <div class="flex-container">
         <div style="flex-grow: 10">
            <div class="sidesMenu">
-              <ul id="listEdit">
-              </ul>
+               <form>
+                   <ul id="listEdit">
+                   </ul>
+                   <button class="button" style="vertical-align:middle"><span>Send </span></button>
+               </form>
             </div> 
         </div>
     </div>

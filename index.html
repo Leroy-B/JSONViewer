@@ -46,7 +46,7 @@
                     }
                 }
                 
-                $.getJSON("http://mindpower.com/index.cfm/contacts",function(data){
+                $.getJSON("https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts",function(data){
                     console.log("GET: json from mindpower successfully!");
                     globalDATA = data;
                     for (i in data) {

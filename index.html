@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <script>
+            
+           
+            $(".listItemLeft").click(function() {
+                alert( this.id );
+            });
+            
+            $(document).ready(function() {
+                
+                function isArray(what) {
+                    return Object.prototype.toString.call(what) === '[object Array]';
+                }
+                
+                function hasAddress(index) {
+                    if(data[index].hasOwnProperty('address')){
+                        return true;
+                    }
+                }
+                
+                
+                
+                $.ajax({
+                    type: "GET",
+                    url: "http://mindpower.com/index.cfm/contacts",
+                    success: function(data){
+                        
+                        for (i in data) {
+                            $("#listKey").append($("<li class='listItemLeft' id='id_" + data[i].alias + "'>").text(data[i].alias));
+                          
+                        }
+                        
+                        
+                        
+                    }
+                });
+                
+                
+                
+                $.ajax({
+                    type: "GET",
+                    url: "http://mindpower.com/index.cfm/contacts",
+                    success: function(data){
+                        
+                        for (i in data) {
+                            //$('#listKey').append($('<li>').text(data[i].alias));
+                        }
+                        
+                    }
+                });
+                
+            });
+            
+        </script>
+        
+        <style>
+            
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            
+            ul{
+                list-style-type: none;
+            }
+        
+            .flex-container {
+              display: flex;
+              align-items: stretch;
+              background-color: #f1f1f1;
+            }
+
+            .flex-container > div {
+              background-color: white/*DodgerBlue*/;
+              color: black;
+              width: 100px;
+              margin: 10px;
+              text-align: left;
+              line-height: 20px;
+              font-size: 18px;
+            }
+
+            #leftsideMenu ul li {
+                border: 1px solid lightgray;
+                background-color: #969696;
+                padding: 8px 20px 8px 20px;
+                color: white;
+                display: block;
+            }
+
+            #leftsideMenu ul li:hover {
+                cursor: pointer;
+                background-color: DodgerBlue;
+                transition: 0.5s;
+                padding-left: 30px;
+                padding-right: 10px;
+            }
+
+        </style>
+    </head>
+<body>
+    
+    <h1>JSON Display</h1>
+
+    <div class="flex-container">
+        <div style="flex-grow: 5">
+           <div id="leftsideMenu">
+              <ul id="listKey">
+              </ul>
+            </div> 
+        </div>
+        <div style="flex-grow: 5">
+            <div id="leftsideMenu">
+              <ul id="listArray">
+              </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex-container">
+        <div style="flex-grow: 10">
+           <div id="leftsideMenu">
+              <ul id="dvCSV">
+              </ul>
+            </div> 
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,17 @@
+#leftsideMenu ul li {
+  border-bottom: 1px dashed lightgray;
+  background-color: cadetblue;
+}
+
+#leftsideMenu ul li a {
+  padding: 8px 20px 8px 20px;
+  color: white;
+  display: block;
+}
+
+#leftsideMenu ul li a:hover {
+  background-color: lightgreen;
+  transition: 0.5s;
+  padding-left: 30px;
+  padding-right: 10px;
+}

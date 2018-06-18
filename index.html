@@ -3,129 +3,185 @@
     <head>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
         
         <script>
             
-           
-            $(".listItemLeft").click(function() {
-                alert( this.id );
-            });
+            //TDOD http://jsfiddle.net/uenZW/2/
+            //TODO get json link from url in input field
+            
+            var leftGlobalID = "";
+            var rightGlobalID = "";
+            var globalDATA;
+            var resultRight;
             
             $(document).ready(function() {
                 
                 function isArray(what) {
                     return Object.prototype.toString.call(what) === '[object Array]';
-                }
-                
+                }         
                 function hasAddress(index) {
                     if(data[index].hasOwnProperty('address')){
                         return true;
                     }
                 }
-                
-                
-                
-                $.ajax({
-                    type: "GET",
-                    url: "http://mindpower.com/index.cfm/contacts",
-                    success: function(data){
-                        
-                        for (i in data) {
-                            $("#listKey").append($("<li class='listItemLeft' id='id_" + data[i].alias + "'>").text(data[i].alias));
-                          
-                        }
-                        
-                        
-                        
+                function hasConnectivity(index) {
+                    if(data[index].hasOwnProperty('connectivity')){
+                        return true;
                     }
+                }
+                function hasVideos(index) {
+                    if(data[index].hasOwnProperty('videos')){
+                        return true;
+                    }
+                }
+                function hasLogo(index) {
+                    if(data[index].hasOwnProperty('logo')){
+                        return true;
+                    }
+                }
+                function hasAwards(index) {
+                    if(data[index].hasOwnProperty('awards')){
+                        return true;
+                    }
+                }
+                
+                $.getJSON("http://mindpower.com/index.cfm/contacts",function(data){
+                    console.log("GET: json from mindpower successfully!");
+                    globalDATA = data;
+                    for (i in data) {
+                        $("#listKey").append($("<li class='listItemLeft leftList' id='" + data[i].alias + "'>").text(data[i].alias));
+                    }
+                    console.log("SET: json keys to listKey successfully!");
                 });
                 
                 
-                
-                $.ajax({
-                    type: "GET",
-                    url: "http://mindpower.com/index.cfm/contacts",
-                    success: function(data){
-                        
-                        for (i in data) {
-                            //$('#listKey').append($('<li>').text(data[i].alias));
+                function findObjects(obj, targetProp, targetValue, finalResults) {
+
+                    function getObject(theObject) {
+                        let result = null;
+                        if (theObject instanceof Array) {
+                            for (let i = 0; i < theObject.length; i++) {
+                                getObject(theObject[i]);
+                            }
+                        } else {
+                            for (let prop in theObject) {
+                                if (theObject.hasOwnProperty(prop)) {
+                                    console.log(prop + ': ' + theObject[prop]);
+                                    if (prop === targetProp) {
+                                        console.log('found alias');
+                                        if (theObject[prop] === targetValue) {
+                                            console.log('found prop', prop, ': ', theObject[prop]);
+                                            finalResults.push(theObject);
+                                        }
+                                    }
+                                    if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+                                        getObject(theObject[prop]);
+                                    }
+                                }
+                            }
                         }
-                        
                     }
+                    getObject(obj);
+                }
+                
+                function findObjects1(obj) {
+
+                    function getObject(theObject) {
+                        let result = null;
+                        if (theObject instanceof Array) {
+                            for (let i = 0; i < theObject.length; i++) {
+                                getObject(theObject[i]);
+                            }
+                        } else {
+                            for (let prop in theObject) {
+                                if (theObject.hasOwnProperty(prop)) {
+                                    $("#listArray").append($("<li class='listItemRight' id='" + prop + "'>").text(prop));
+                                }
+                            }
+                        }
+                    }
+                    getObject(obj);
+                }
+                
+                function findObjects2(obj) {
+
+                    function getObject(theObject) {
+                        let result = null;
+                        if (theObject instanceof Array) {
+                            for (let i = 0; i < theObject.length; i++) {
+                                getObject(theObject[i]);
+                            }
+                        } else {
+                            for (let prop in theObject) {
+                                if (theObject.hasOwnProperty(prop)) {
+                                    $("#listEdit").append($("<input class='listItemBottom'>").val(prop));
+                                    $("#listEdit").append($("<input class='listItemBottom'> <br>").val(theObject[prop]));
+                                }
+                            }
+                        }
+                    }
+                    getObject(obj);
+                }
+                
+
+                var finalResults = [];
+                var finalResultsForList = [];
+                
+                var sidesMenu = sidesMenu = $(".sidesMenu ul");
+                
+                $(document).on('click', '.listItemLeft', function () {
+                    $('#listArray').empty();
+                    
+                    leftGlobalID = this.id;
+                    findObjects(globalDATA, "alias", leftGlobalID, finalResults);
+                    findObjects1(finalResults);
+                    
+                    //reset value
+                    finalResultsForList = finalResults;
+                    finalResults = [];
                 });
+                
+                $(document).on('click', '.listItemRight', function () {
+                    $('#listEdit').empty();
+                    rightGlobalID = this.id;
+                    findObjects(finalResultsForList, rightGlobalID, "", finalResultsForList);
+                    findObjects2(finalResultsForList);
+                });
+                
+                $(".display").click(function(){
+                    $(this).hide().siblings(".edit").show().val($(this).text()).focus();
+                });
+
+                $(".edit").focusout(function(){
+                    $(this).hide().siblings(".display").show().text($(this).val());
+                });
+
                 
             });
             
         </script>
         
-        <style>
-            
-            *{
-                margin: 0px;
-                padding: 0px;
-            }
-            
-            ul{
-                list-style-type: none;
-            }
-        
-            .flex-container {
-              display: flex;
-              align-items: stretch;
-              background-color: #f1f1f1;
-            }
-
-            .flex-container > div {
-              background-color: white/*DodgerBlue*/;
-              color: black;
-              width: 100px;
-              margin: 10px;
-              text-align: left;
-              line-height: 20px;
-              font-size: 18px;
-            }
-
-            #leftsideMenu ul li {
-                border: 1px solid lightgray;
-                background-color: #969696;
-                padding: 8px 20px 8px 20px;
-                color: white;
-                display: block;
-            }
-
-            #leftsideMenu ul li:hover {
-                cursor: pointer;
-                background-color: DodgerBlue;
-                transition: 0.5s;
-                padding-left: 30px;
-                padding-right: 10px;
-            }
-
-        </style>
     </head>
 <body>
     
     <h1>JSON Display</h1>
 
     <div class="flex-container">
-        <div style="flex-grow: 5">
-           <div id="leftsideMenu">
-              <ul id="listKey">
-              </ul>
-            </div> 
+        <div class="sidesMenu">
+          <ul id="listKey">
+          </ul>
         </div>
-        <div style="flex-grow: 5">
-            <div id="leftsideMenu">
-              <ul id="listArray">
-              </ul>
-            </div>
+        <div class="sidesMenu">
+          <ul id="listArray">
+          </ul>
         </div>
     </div>
     
     <div class="flex-container">
         <div style="flex-grow: 10">
-           <div id="leftsideMenu">
-              <ul id="dvCSV">
+           <div class="sidesMenu">
+              <ul id="listEdit">
               </ul>
             </div> 
         </div>

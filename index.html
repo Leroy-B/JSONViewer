@@ -3,6 +3,8 @@
     <head>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
         
         <script>
@@ -117,7 +119,7 @@
                                 console.log(prop + ': ' + theObject[prop]);
                                 if (theObject.hasOwnProperty(prop)) {
                                     if (prop === targetProp) {
-                                        $("#titelForTextbox").text(prop + ": ").append($("<input autofocus class='listItemBottom' style='height: 35px;width: auto;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;'> <br>").val(theObject[prop]));
+                                        $("#titelForTextbox").text(prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: auto;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;'> <br>").val(theObject[prop]));
                                         //$("#listEdit").append($("<input class='listItemBottom'>").val(prop));
                                         //$("#listEdit").append($("<input class='listItemBottom'> <br>").val(theObject[prop]));
                                     }
@@ -148,6 +150,13 @@
                     finalResults = [];
                 });
                 
+                $(document).on('click', '.listItemBottom', function () {
+                    if(this.id == "birthdate"){
+                        
+                        $('.listItemBottom').datepicker().datepicker("show");
+                    }
+                });
+                
                 $(document).on('click', '.listItemRight', function () {
                     $('#listEdit').empty();
                     rightGlobalID = this.id;
@@ -164,7 +173,7 @@
     </head>
 <body>
     
-    <h1>JSON Display</h1>
+    <h1>JSON Viewer</h1>
 
     <div class="flex_container">
         <div class="sidesMenu">
@@ -196,6 +205,8 @@
         <div class="flex_box_25">
         </div>
     </div>
+    
+    <h4>Leroy &copy;<br>using this website you agree to give me a high five opon request</h4>
     
 </body>
 </html>

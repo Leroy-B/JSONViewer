@@ -4,9 +4,17 @@
             
 h1 { text-align: center; }
         
-            .flex-container { display: flex; align-items: stretch; background-color: #f1f1f1; }
+            .flex_container { display: flex; align-items: stretch; background-color: #f1f1f1; }
 
-            .flex-container > div   { background-color: white/*DodgerBlue*/; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
+            .flex_box_50 { width: 50%; }
+            .flex_box_25 { width: 25%; }
+
+            /*.flex_container > div { background-color: white; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
+                                    font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }*/
+
+            .bottomMenu { background-color: white/*DodgerBlue*/; color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;
+                                    font-size: 18px; flex-grow: 5; height:auto; }
+            .sidesMenu { background-color: white/*DodgerBlue*/; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }
 
             .sidesMenu ul li {
@@ -44,58 +52,34 @@ h1 { text-align: center; }
                 padding-left: 30px;
                 padding-right: 10px;
             }
-            input[type=text] {
-                width: 100%;
-                padding: 12px 20px;
-                margin: 8px 0;
-                box-sizing: border-box;
-                border: 3px solid #ccc;
-                -webkit-transition: 0.5s;
-                transition: 0.5s;
-                outline: none;
-            }
-
-            input[type=text]:focus {
-                border: 3px solid #555;
-            }
 
 
-.button {
-  display: inline-block;
-  border-radius: 4px;
-  background-color: #ff8000;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 28px;
-  padding: 20px;
-  width: 200px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
+
+.btn-group button {
+    background-color: #ff8000; /* Green background */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+    margin: auto;
+    width: 50%;
+    border: 3px solid #d3d3d3;
+    padding: 10px;
+    line-height: 20px;
+    font-size: 18px;
 }
 
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
 }
 
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
 }
 
-.button:hover span {
-  padding-right: 25px;
-}
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #ff9933;
 }

@@ -3,7 +3,9 @@
             ul  { list-style-type: none; }
             
 h1 {     text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
+h3 {  background-color: white; right: 0; margin-right: 10px; margin-bottom: 10px; text-align: center; }
 h4 {     text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
+b { font-weight:bolder; color: dodgerblue; font-size: 30px }
         
             .flex_container { display: flex; align-items: stretch; background-color: #f1f1f1; }
 
@@ -27,7 +29,7 @@ h4 {     text-align: center; background-color: dodgerblue; color: white; padding
             /*.flex_container > div { background-color: white; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }*/
 
-            .bottomMenu { background-color: white; color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;
+            .bottomMenu { color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; height:auto; }
             .sidesMenu { background-color: white; color: black; width: 94%; margin: 10px; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }
@@ -51,14 +53,14 @@ h4 {     text-align: center; background-color: dodgerblue; color: white; padding
             .sidesMenu ul li:active {
                 border: 2px solid black;
                 cursor: pointer;
-                background-color: orange;
+                background-color: #ff8000;
                 color: black;
                 transition: 0.5s;
                 padding-left: 30px;
                 padding-right: 10px;
             }
             
-            .sidesMenu ul li .selected {
+            .selected {
                 border: 2px solid black;
                 cursor: pointer;
                 background-color: white;

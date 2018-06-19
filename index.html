@@ -122,9 +122,7 @@
                                 console.log(prop + ': ' + theObject[prop]);
                                 if (theObject.hasOwnProperty(prop)) {
                                     if (prop === targetProp) {
-                                        $("#titelForTextbox").text(prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 70%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;'> <br>").val(theObject[prop]));
-                                        //$("#listEdit").append($("<input class='listItemBottom'>").val(prop));
-                                        //$("#listEdit").append($("<input class='listItemBottom'> <br>").val(theObject[prop]));
+                                        $("#listEdit ul").append($("<h3 id'titelForTextbox' style='right:0;margin-right: 10px; text-align: center'></h3>").text(prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 70%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'> <br>").val(theObject[prop])));
                                     }
                                     if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
                                         getObject(theObject[prop]);
@@ -143,7 +141,6 @@
                 
                 $(document).on('click', '.listItemLeft', function () {
                     $('#listArray').empty();
-                    
                     leftGlobalID = this.id;
                     findObjects(globalDATA, "alias", leftGlobalID, finalResults);
                     findObjects1(finalResults);
@@ -153,20 +150,20 @@
                     finalResults = [];
                 });
                 
-                $(document).on('click', '.listItemBottom', function () {
-                    if(this.id == "birthdate"){
-                        
-                        $('.listItemBottom').datepicker().datepicker("show");
-                    }
-                });
-                
                 $(document).on('click', '.listItemRight', function () {
-                    $('#listEdit').empty();
+                    //$('#listEdit').empty();
                     rightGlobalID = this.id;
                     console.log('right ID: ' + this.id);
                     findObjects(finalResultsForList, rightGlobalID, rightGlobalID, finalResultsForList);
                     console.log(finalResultsForList);
                     findObjects2(finalResultsForList, rightGlobalID);
+                });
+                
+                $(document).on('click', '.listItemBottom', function () {
+                    if(this.id == "birthdate"){
+                        //$('#birthdate').attr('pattern', "20[0-9][0-9]-((0[1-9])|(1[0-2]))-(([1-2][0-9])|(3[0-1])|(0[1-9]))");
+                        //$('.listItemBottom').datepicker().datepicker("show");
+                    }
                 });
                 
             });
@@ -187,8 +184,9 @@
             <div class="flex_box_50">
                <div class="topMenu">
                    <form>
+                       <span style="padding-left: 75%;" class="columnTitel"><b>1.</b> Request a JSON</span>
                        <div class="btn-group">
-                           <input>
+                           <input style="height: 40px;width: 47%;margin:0px 0px 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 25px;">
                            <button>Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
                        </div>
                    </form>
@@ -202,14 +200,14 @@
             <div class="flex_box_25">
             </div>
             <div class="flex_box_25">
-                <span class="columnTitel">Dataset</span>
+                <span class="columnTitel"><b>2.</b> Select dataset</span>
                 <div class="sidesMenu">
                     <ul id="listKey">
                     </ul>
                 </div>
             </div>
             <div class="flex_box_25">
-                <span class="columnTitel">Attribute KEY</span>
+                <span class="columnTitel"><b>3.</b> Attribute KEY</span>
                 <div class="sidesMenu">
                     <ul id="listArray">
                     </ul>
@@ -223,16 +221,19 @@
             <div class="flex_box_25">
             </div>
             <div class="flex_box_501">
-               <div class="bottomMenu">
-                   <form>
-                       <h3 id="titelForTextbox" style="margin-right: 10px; text-align: center"></h3>
-                       <ul id="listEdit">
-                       </ul>
-                       <div class="btn-group">
-                           <button>Send&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                           <button>Reset&nbsp;<i class="fas fa-ban"></i></button>
-                       </div>
+                <span class="columnTitel"><b>4.</b> Edit content</span>
+                <div style="margin-top: 10px" id="listEdit" class="bottomMenu">
+
+                    <form>
+                        <ul>
+                        </ul>
+                        <span style="padding-left: 75%;" class="columnTitel"><b>5.</b> Send changes</span>
+                        <div class="btn-group">
+                            <button>Send&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                            <button>Reset&nbsp;<i class="fas fa-ban"></i></button>
+                        </div>
                    </form>
+                    
                 </div> 
             </div>
             <div class="flex_box_25">

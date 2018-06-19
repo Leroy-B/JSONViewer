@@ -8,14 +8,28 @@ h4 {     text-align: center; background-color: dodgerblue; color: white; padding
             .flex_container { display: flex; align-items: stretch; background-color: #f1f1f1; }
 
             .flex_box_50 { width: 50%; }
+            .flex_box_501 { width: 48.5%; }
             .flex_box_25 { width: 25%; }
+
+.box {
+    text-align: center;
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 35px;
+}
+
+.columnTitel { padding-left: 25px; margin-top: 10px; }
 
             /*.flex_container > div { background-color: white; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }*/
 
-            .bottomMenu { background-color: white/*DodgerBlue*/; color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;
+            .bottomMenu { background-color: white; color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; height:auto; }
-            .sidesMenu { background-color: white/*DodgerBlue*/; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
+            .sidesMenu { background-color: white; color: black; width: 94%; margin: 10px; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }
 
             .sidesMenu ul li {
@@ -60,7 +74,7 @@ h4 {     text-align: center; background-color: dodgerblue; color: white; padding
     background-color: #ff8000; /* Green background */
     color: white; /* White text */
     cursor: pointer; /* Pointer/hand icon */
-    float: left; /* Float the buttons side by side */
+    float: right; /* Float the buttons side by side */
     margin: auto;
     width: 50%;
     border: 3px solid #d3d3d3;
@@ -77,7 +91,7 @@ h4 {     text-align: center; background-color: dodgerblue; color: white; padding
 }
 
 .btn-group button:not(:last-child) {
-    border-right: none; /* Prevent double borders */
+    /*border-right: none; /* Prevent double borders */
 }
 
 /* Add a background color on hover */

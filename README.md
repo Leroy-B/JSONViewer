@@ -1,1 +1,1 @@
-# JSONviewerGUI
+# JSONViewer

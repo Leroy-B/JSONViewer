@@ -29,10 +29,10 @@
                    <!-- action="/assets/requestJSON.php" method="post" -->
                    <form   name="requestJSONform" id="requestJSONform">
                        <span style="padding-left: 3%;" class="columnTitel"><b>1.</b> Request a JSON</span>
-                       <div class="btn-group">
-                           <input disabled type="url" name="requestJSONURL" style="height: 40px;width: 47%;margin:0px 0px 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 25px;">
-                           <button class="buttonRequestJSON" type="submit">Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                       </div>
+                       <div class="btn-group" style="padding: 10px;">
+                            <button>Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                            <input disabled class="inputField" type="url" name="requestJSONURL">
+                        </div>
                    </form>
                 </div> 
             </div>
@@ -46,7 +46,83 @@
             <div class="flex_box_25">
                 <span class="columnTitel"><b>2.</b> Select dataset</span>
                 <div class="sidesMenu">
+                    
                     <ul id="listKey">
+                        <canvas id=c style="border:9px solid"></canvas>
+                        <script>
+                        t=c.getContext("2d"); // canvas ctx
+                        S=9; // snake length
+                        h= // next horizontal offset
+                        l=1;  // if 0, lock keys until next frame
+                        g= // game over
+                        v=0; // next vertical offset
+                        s=[]; // snake
+                        a=[9,9]; // apple
+                        // Init snake
+                        for(i=9;i--;){
+                          s.push([i,7]);
+                        }
+                        // Move
+                        (w=function(){
+                          // Walk
+                          s.unshift([(s[0][0]+h+30)%30,(s[0][1]+v+15)%15]);
+
+                          // Die
+                          for(i in s){
+                            if(i>0 && s[0][0]==s[i][0] && s[0][1]==s[i][1]){
+                              g=1;
+                              alert(S-9);
+                            }
+                          }
+
+                          // Eat (get longer)
+                          if(a[0]==s[0][0] && a[1]==s[0][1]){
+                            a=0;
+                            S++;
+
+                            // New apple
+                            while(!a){
+                              a=[~~(Math.random()*30),~~(Math.random()*15)];
+                              for(i in s){
+                                if(s[i][0]==a[0] && s[i][1]==a[1]){
+                                  a=0;
+                                }
+                              }
+                            }
+                          }
+
+                          // Or do not get longer 
+                          else{
+                            s.pop();
+                          }
+
+                          // Draw the frame
+                          c.width|=0;
+                          for(j in s){
+                            t.fillRect(s[j][0]*10,s[j][1]*10,10,10);
+                          }
+                          t.fillRect(a[0]*10,a[1]*10,10,10);
+
+                          // Unock controls
+                          l=1;
+
+                          // Next frame
+                          if(!g)setTimeout(w,160-S/3);
+                        })()
+                        // Keyboard
+                        onkeyup=function(e){
+                          k=e.keyCode;
+                          if(l){
+                            if(v && (h=k==39?1:k==37?-1:0)){
+                              l=v=0;
+                            }
+                            else if(h && (v=k==40?1:k==38?-1:0)){
+                              l=h=0;
+                            }
+                          }
+                        }
+                        </script>
+
                     </ul>
                 </div>
             </div>

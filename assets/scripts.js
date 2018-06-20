@@ -42,11 +42,13 @@ $(document).ready(function() {
     //"https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts"
     
     $('#requestJSONform').validate({
+        
         submitHandler: function (form) {
             //JSONpath
             //var JSONpath = "<?php echo $JSONpath; ?>";
             $.getJSON("https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts", function(data) {
                 globalDATA = data;
+                $('#listKey').empty();
                 for (i in data) {
                     $("#listKey").append($("<li class='listItemLeft leftList' id='" + data[i].alias + "'>").text(i + ": " + data[i].alias));
                 }
@@ -139,10 +141,13 @@ $(document).ready(function() {
                                 case "Data":
                                     var image = new Image();
                                     image.src = "data:image/jpeg;base64," + theObject[prop];
-                                    $("#listEdit ul").append($("<h3 id='"+ prop +" "+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append("<img src='"+image.src+"' height='64px' width='64px'>")));
+                                    $("#listEdit ul").append($("<h3 id='"+ prop +"+"+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append("<img src='"+image.src+"' height='64px' width='64px'>")));
                                     break;
                                 default:
-                                    $("#listEdit ul").append($("<h3 id='"+ prop +" "+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 64%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'> <br>").val(theObject[prop]))));
+                                    $("#listEdit ul").append($("<h3 id='"+ prop +"+"+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 64%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'>").val(theObject[prop]))));
+                                    
+                                    $("#listEdit ul").append($("<input id='"+ prop +"+"+ leftGlobalID +"' type='button' class='idek' style='float: right;margin-top: -120px;    margin-right: 10px;'>").val("X"));
+                                    
                                     break;
                             }
                         }
@@ -161,6 +166,12 @@ $(document).ready(function() {
     var finalResults = [];
     var finalResultsForList = [];
 
+    $(document).on('click', '.idek', function () {
+        console.log(this.id);
+        //$(this).parents(this.id).eq(1).remove();
+        $("ul #"+this.id).remove();
+    });
+    
     $(document).on('click', '.listItemLeft', function () {
         $('#listArray').empty();
         leftGlobalID = this.id;

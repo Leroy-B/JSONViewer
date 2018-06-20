@@ -135,7 +135,16 @@ $(document).ready(function() {
                     console.log(prop + ': ' + theObject[prop]);
                     if (theObject.hasOwnProperty(prop)) {
                         if (prop === targetProp) {
-                            $("#listEdit ul").append($("<h3 id='"+ prop +" "+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 64%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'> <br>").val(theObject[prop]))));
+                            switch(prop){
+                                case "Data":
+                                    var image = new Image();
+                                    image.src = "data:image/jpeg;base64," + theObject[prop];
+                                    $("#listEdit ul").append($("<h3 id='"+ prop +" "+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append("<img src='"+image.src+"' height='64px' width='64px'>")));
+                                    break;
+                                default:
+                                    $("#listEdit ul").append($("<h3 id='"+ prop +" "+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 64%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'> <br>").val(theObject[prop]))));
+                                    break;
+                            }
                         }
                         if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
                             getObject(theObject[prop]);
@@ -168,21 +177,12 @@ $(document).ready(function() {
         rightGlobalID = this.id;
         console.log('right ID: ' + this.id);
         findObjects(finalResultsForList, rightGlobalID, rightGlobalID, finalResultsForList);
-        console.log(finalResultsForList);
+        console.log("============ finalResultsForList: " +finalResultsForList);
         findObjects2(finalResultsForList, rightGlobalID);
     });
 
     $(document).on('click', '.listItemBottom', function () {
-        switch(this.id){
-            case "birthdate":
-                //$('#birthdate').attr('pattern', "20[0-9][0-9]-((0[1-9])|(1[0-2]))-(([1-2][0-9])|(3[0-1])|(0[1-9]))");
-                //$('.listItemBottom').datepicker().datepicker("show");
-                break;
-            case "logo":
-                var image = new Image();
-                image.src;
-                break;
-        }
+        
     });
 
 });

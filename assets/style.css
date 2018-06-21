@@ -50,20 +50,10 @@ b { font-weight:bolder; color: dodgerblue; font-size: 30px }
                 padding-left: 5%;
             }
             
-            .sidesMenu ul li:active {
+            .sidesMenu ul li::focus {
                 border: 2px solid black;
                 cursor: pointer;
                 background-color: #ff8000;
-                color: black;
-                transition: 0.5s;
-                padding-left: 30px;
-                padding-right: 10px;
-            }
-            
-            .selected {
-                border: 2px solid black;
-                cursor: pointer;
-                background-color: white;
                 color: black;
                 transition: 0.5s;
                 padding-left: 30px;

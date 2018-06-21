@@ -169,7 +169,18 @@ $(document).ready(function() {
     $(document).on('click', '.idek', function () {
         console.log(this.id);
         //$(this).parents(this.id).eq(1).remove();
-        $("ul #"+this.id).remove();
+        //$(this.id).remove();
+        document.getElementById(this.id).outerHTML = "";
+    });
+    
+    var classSelected = 'selected';
+    var $thumbs = $(document).on('click', '.listItemLeft', function (e) {
+        console.log("hallo");
+        e.preventDefault();
+        $thumbs.removeClass(classSelected);
+        $(this).addClass(classSelected);
+        console.log(classSelected);
+        console.log($thumbs);
     });
     
     $(document).on('click', '.listItemLeft', function () {

@@ -43,57 +43,16 @@ $(document).ready(function() {
             return true;
         }
     }
-    
-    //"https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts"
-    
-    /*$('#requestJSONform').validate({
-        
-        submitHandler: function (form) {
-            //JSONpath
-            //var JSONpath = "<?php echo $JSONpath; ?>";
-            $.getJSON("https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts", function(data) {
-                globalDATA = data;
-                $('#listKey').empty();
-                for (i in data) {
-                    $("#listKey").append($("<li class='listItemLeft leftList' id='" + data[i].alias + "'>").text(i + ": " + data[i].alias));
-                }
-            })
-                .done(function() { console.log('getJSON request succeeded!'); })
-                .fail(function(jqXHR, textStatus, errorThrown) { console.log('getJSON request failed! ' + textStatus); alert("ERROR: No JSON existst at the given URL!") })
-                .always(function() { console.log('getJSON request ended!');});
-            return false;
-        }
-    });
-    
-    $('#searchJSONform').validate({
-        
-        submitHandler: function (form) {
-            //JSONpath
-            //var JSONpath = "<?php echo $JSONpath; ?>";
-            console.log(getSearchInputText());
-            $.getJSON("https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts", function(data) {
-                globalDATA = data;
-                $('#listKey').empty();
-                for (i in data) {
-                    $("#listKey").append($("<li class='listItemLeft leftList' id='" + data[i].alias + "'>").text(i + ": " + data[i].alias));
-                }
-            })
-                .done(function() { console.log('search succeeded!'); })
-                .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
-                .always(function() { console.log('search ended!');});
-            return false;
-        }
-    });*/
 
     function findObjects(obj, targetProp, targetValue, finalResults) {
 
         function getObject(theObject) {
             if (theObject instanceof Array) {
-                for (let i = 0; i < theObject.length; i++) {
+                for (var i = 0; i < theObject.length; i++) {
                     getObject(theObject[i]);
                 }
             } else {
-                for (let prop in theObject) {
+                for (var prop in theObject) {
                     if (theObject.hasOwnProperty(prop)) {
                         console.log(prop + ': ' + theObject[prop]);
                         if (prop === targetProp) {
@@ -117,11 +76,11 @@ $(document).ready(function() {
 
         function getObject(theObject) {
             if (theObject instanceof Array) {
-                for (let i = 0; i < theObject.length; i++) {
+                for (var i = 0; i < theObject.length; i++) {
                     getObject(theObject[i]);
                 }
             } else {
-                for (let prop in theObject) {
+                for (var prop in theObject) {
                     if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
                         $("#listArray").append($("<li class='sidesMenu1 listItemRight1' style='background-color: black; color: white;cursor: not-allowed;' id='" + prop + "'>").text(prop));
                         getObject1(theObject[prop]);
@@ -135,11 +94,11 @@ $(document).ready(function() {
         
         function getObject1(theObject) {
             if (theObject instanceof Array) {
-                for (let i = 0; i < theObject.length; i++) {
+                for (var i = 0; i < theObject.length; i++) {
                     getObject1(theObject[i]);
                 }
             } else {
-                for (let prop in theObject) {
+                for (var prop in theObject) {
                     if (theObject.hasOwnProperty(prop)) {
                         $("#listArray").append($("<li class='listItemRight' id='" + prop + "' style='padding-left:40px;'>").text("↳ " + prop));
                     }
@@ -154,11 +113,11 @@ $(document).ready(function() {
 
         function getObject(theObject) {
             if (theObject instanceof Array) {
-                for (let i = 0; i < theObject.length; i++) {
+                for (var i = 0; i < theObject.length; i++) {
                     getObject(theObject[i]);
                 }
             } else {
-                for (let prop in theObject) {
+                for (var prop in theObject) {
                     console.log(prop + ': ' + theObject[prop]);
                     if (theObject.hasOwnProperty(prop)) {
                         if (prop === targetProp) {
@@ -167,6 +126,9 @@ $(document).ready(function() {
                                     var image = new Image();
                                     image.src = "data:image/jpeg;base64," + theObject[prop];
                                     $("#listEdit ul").append($("<h3 id='"+ prop +"+"+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append("<img src='"+image.src+"' height='64px' width='64px'>")));
+                                    break;
+                                case "url":
+                                    $("#listEdit ul").append($("<iframe width='560' height='315' src='https://www.youtube.com/embed/YRdSAyIrQIw?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>"));
                                     break;
                                 default:
                                     $("#listEdit ul").append($("<h3 id='"+ prop +"+"+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 64%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'>").val(theObject[prop]))));
@@ -243,6 +205,8 @@ $(document).ready(function() {
     });
     
     $(document).on('click', '.listItemLeft', function () {
+        $(".scrollViewLeft ul li").css("background-color", "#969696");
+        $(".scrollViewLeft ul li#" + this.id).css("background-color", "#ff8000");
         $('#listArray').empty();
         leftGlobalID = this.id;
         findObjects(globalDATA, "alias", leftGlobalID, finalResults);
@@ -254,6 +218,8 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.listItemRight', function () {
+        $(".scrollViewRight ul li").css("background-color", "#969696");
+        $(".scrollViewRight ul li#" + this.id).css("background-color", "#ff8000");
         //$('#listEdit').empty();
         rightGlobalID = this.id;
         console.log('right ID: ' + this.id);

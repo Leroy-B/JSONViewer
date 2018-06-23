@@ -27,13 +27,19 @@
             <div class="flex_box_50">
                <div class="topMenu">
                    <!-- action="/assets/requestJSON.php" method="post" -->
-                   <form   name="requestJSONform" id="requestJSONform">
+                   <form name="requestJSONform" id="requestJSONform">
                        <span style="padding-left: 3%;" class="columnTitel"><b>1.</b> Request a JSON</span>
                        <div class="btn-group" style="padding: 10px;">
-                            <button>Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                            <input disabled placeholder="This field is disabled. Click the button ->" class="inputField" type="url" name="requestJSONURL">
-                        </div>
+                           <button>Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                           <input disabled placeholder="This field is disabled!" class="inputField" type="url" name="requestJSONURL">
+                       </div>
                    </form>
+                   <span style="padding-left: 3%;" class="columnTitel"><b>2.</b> Search the requested JSON (eg. "alias=tinu" , "alias=tinu;zip=8805")</span>
+                   <div class="btn-group1" style="padding: 10px;">
+                       <button>Load whole JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                       <button id="searchInputButton">Search JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                       <input placeholder="z.B. alias=tinu" id="searchInputText" class="inputField1" name="searchJSONURL">
+                   </div>
                 </div> 
             </div>
             <div class="flex_box_25">
@@ -44,7 +50,7 @@
             <div class="flex_box_25">
             </div>
             <div class="flex_box_25">
-                <span class="columnTitel"><b>2.</b> Select dataset</span>
+                <span class="columnTitel"><b>3.</b> Select dataset</span>
                 <div class="sidesMenu">
                     
                     <ul id="listKey">
@@ -127,7 +133,7 @@
                 </div>
             </div>
             <div class="flex_box_25">
-                <span class="columnTitel"><b>3.</b> Select attribute</span>
+                <span class="columnTitel"><b>4.</b> Select attribute</span>
                 <div class="sidesMenu">
                     <ul id="listArray">
                     </ul>
@@ -141,13 +147,13 @@
             <div class="flex_box_25">
             </div>
             <div class="flex_box_501">
-                <span class="columnTitel"><b>4.</b> Edit content</span>
+                <span class="columnTitel"><b>5.</b> Edit content</span>
                 <div style="margin-top: 10px" id="listEdit" class="bottomMenu">
 
                     <form>
                         <ul>
                         </ul>
-                        <span style="padding-left: 75%;" class="columnTitel"><b>5.</b> Send changes</span>
+                        <span style="padding-left: 75%;" class="columnTitel"><b>6.</b> Send changes</span>
                         <div class="btn-group">
                             <button>Send&nbsp;<i class="fas fa-angle-double-right"></i></button>
                             <button>Reset&nbsp;<i class="fas fa-ban"></i></button>

@@ -73,8 +73,25 @@ b { font-weight:bolder; color: dodgerblue; font-size: 30px }
     font-size: 18px;
 }
 
+.btn-group1 button {
+    background-color: #ff8000; /* Green background */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer/hand icon */
+    float: right; /* Float the buttons side by side */
+    margin: auto;
+    width: 33%;
+    border: 3px solid #d3d3d3;
+    padding: 10px;
+    line-height: 20px;
+    font-size: 18px;
+}
+
 .inputField {
-    height: 46px;width: 50%;margin:0px 0px 10px 0px;border: 3px solid lightslategrey;font-size: 25px;box-sizing: border-box;
+    height: 46px;width: 50%;margin:0px 0px 10px 0px;border: 3px solid lightslategrey;font-size: 25px;box-sizing: border-box;padding-left: 5px;
+}
+
+.inputField1 {
+    height: 46px;width: 34%;margin:0px 0px 10px 0px;border: 3px solid lightslategrey;font-size: 25px;box-sizing: border-box;padding-left: 5px;
 }
 
 /* Clear floats (clearfix hack) */

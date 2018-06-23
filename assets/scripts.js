@@ -5,7 +5,11 @@ var rightGlobalID = "";
 var globalDATA;
 var resultRight;
 
+var searchInputText;
+
 $(document).ready(function() {
+    
+    
 
     function isArray(what) {
         return Object.prototype.toString.call(what) === '[object Array]';
@@ -59,6 +63,26 @@ $(document).ready(function() {
             return false;
         }
     });
+    
+    $('#searchJSONform').validate({
+        
+        submitHandler: function (form) {
+            //JSONpath
+            //var JSONpath = "<?php echo $JSONpath; ?>";
+            console.log(getSearchInputText());
+            $.getJSON("https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts", function(data) {
+                globalDATA = data;
+                $('#listKey').empty();
+                for (i in data) {
+                    $("#listKey").append($("<li class='listItemLeft leftList' id='" + data[i].alias + "'>").text(i + ": " + data[i].alias));
+                }
+            })
+                .done(function() { console.log('search succeeded!'); })
+                .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
+                .always(function() { console.log('search ended!');});
+            return false;
+        }
+    });
 
     function findObjects(obj, targetProp, targetValue, finalResults) {
 
@@ -98,7 +122,7 @@ $(document).ready(function() {
             } else {
                 for (let prop in theObject) {
                     if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
-                        $("#listArray").append($("<li class='listItemRight1' id='" + prop + "'>").text(prop));
+                        $("#listArray").append($("<li class='sidesMenu1 listItemRight1' style='background-color: black; color: white;cursor: not-allowed;' id='" + prop + "'>").text(prop));
                         getObject1(theObject[prop]);
                     } else if (theObject.hasOwnProperty(prop)) {
                         $("#listArray").append($("<li class='listItemRight' id='" + prop + "'>").text(prop));
@@ -171,6 +195,39 @@ $(document).ready(function() {
         //$(this).parents(this.id).eq(1).remove();
         //$(this.id).remove();
         document.getElementById(this.id).outerHTML = "";
+    });
+    
+    $(document).on('click', '#searchInputButton', function () {
+        searchInputText = $("#searchInputText").val();
+        
+        var JSONpath = "https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts/?";
+        console.log("JSONpath 1: " + JSONpath);
+        
+        var searchInputTextArray = searchInputText.split(";");
+        console.log(searchInputTextArray);
+        console.log("JSONpath 2: " + JSONpath);
+        
+        for(var i = 0; i<1; i++){
+            var temp = searchInputTextArray[i] + "&";
+            console.log(temp);
+            JSONpath += temp;
+            console.log("JSONpath 3: " + JSONpath);
+        }
+        JSONpath.slice(searchInputTextArray.length, -1);
+        console.log("JSONpath 4: " + JSONpath);
+        
+        $.getJSON(JSONpath, function(data) {
+                globalDATA = data;
+                console.log(data);
+                $('#listKey').empty();
+                for (i in globalDATA) {
+                    $("#listKey").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
+                }
+            })
+                .done(function() { console.log('search succeeded!'); })
+                .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
+                .always(function() { console.log('search ended!');});
+        
     });
     
     var classSelected = 'selected';

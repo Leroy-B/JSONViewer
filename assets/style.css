@@ -1,17 +1,15 @@
 *   { margin: 0px; padding: 0px; }
             
-            ul  { list-style-type: none; }
-            
+ul  { list-style-type: none; }            
 h1 {     text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
 h3 {  background-color: white; right: 0; margin-right: 10px; margin-bottom: 10px; text-align: center; }
 h4 {     text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
-b { font-weight:bolder; color: dodgerblue; font-size: 30px }
+b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
         
-            .flex_container { display: flex; align-items: stretch; background-color: #f1f1f1; }
-
-            .flex_box_50 { width: 50%; }
-            .flex_box_501 { width: 48.5%; }
-            .flex_box_25 { width: 25%; }
+.flex_container { display: flex; align-items: stretch; background-color: #f1f1f1; }
+.flex_box_50 { width: 50%; }
+.flex_box_501 { width: 48.5%; }
+.flex_box_25 { width: 25%; }
 
 .box {
     text-align: center;
@@ -29,12 +27,47 @@ b { font-weight:bolder; color: dodgerblue; font-size: 30px }
             /*.flex_container > div { background-color: white; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }*/
 
-            .bottomMenu { color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;
-                                    font-size: 18px; flex-grow: 5; height:auto; }
-            .sidesMenu { background-color: white; color: black; width: 94%; margin: 10px; line-height: 20px;
-                                    font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }
+.bottomMenu { color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;font-size: 18px; flex-grow: 5; height:auto; }
 
-            .sidesMenu ul li {
+.scrollViewLeft { 
+    background-color: white;
+    color: black;
+    width: 94%;
+    margin: 10px;
+    line-height: 20px;
+    font-size: 18px;
+    flex-grow: 5;
+    overflow-y: scroll;
+    height:300px;
+}
+
+.scrollViewRight {
+    background-color: white;
+    color: black;
+    width: 94%;
+    margin: 0px 10px 10px 10px;
+    line-height: 20px;
+    font-size: 18px;
+    flex-grow: 5;
+    overflow-y: scroll;
+    height:260px;
+}
+
+.searchboxInList { background-color: #969696; padding: 0px 0px 0px 0px; color: white; display: block; height: 40px; width: 94%; margin: 10px 10px 0px 10px; }
+            
+            .searchboxInList button {
+                background-color: #ff8000; /* Green background */
+                color: white; /* White text */
+                cursor: pointer; /* Pointer/hand icon */
+                float: right; /* Float the buttons side by side */
+                width: 33%;
+                border: 3px solid #d3d3d3;
+                line-height: 20px;
+                font-size: 18px;
+                height: 40px;
+            }
+
+            .scrollViewLeft ul li {
                 border: 2px solid lightgray;
                 background-color: #969696;
                 padding: 8px 20px 8px 20px;
@@ -42,7 +75,7 @@ b { font-weight:bolder; color: dodgerblue; font-size: 30px }
                 display: block;
             }
             
-            .sidesMenu ul li:hover {
+            .scrollViewLeft ul li:hover {
                 cursor: pointer;
                 background-color: white;
                 color: black;
@@ -50,7 +83,33 @@ b { font-weight:bolder; color: dodgerblue; font-size: 30px }
                 padding-left: 5%;
             }
             
-            .sidesMenu ul li::focus {
+            .scrollViewLeft ul li::focus {
+                border: 2px solid black;
+                cursor: pointer;
+                background-color: #ff8000;
+                color: black;
+                transition: 0.5s;
+                padding-left: 30px;
+                padding-right: 10px;
+            }
+
+            .scrollViewRight ul li {
+                border: 2px solid lightgray;
+                background-color: #969696;
+                padding: 8px 20px 8px 20px;
+                color: white;
+                display: block;
+            }
+            
+            .scrollViewRight ul li:hover {
+                cursor: pointer;
+                background-color: white;
+                color: black;
+                transition: 0.5s;
+                padding-left: 5%;
+            }
+            
+            .scrollViewRight ul li::focus {
                 border: 2px solid black;
                 cursor: pointer;
                 background-color: #ff8000;
@@ -91,7 +150,7 @@ b { font-weight:bolder; color: dodgerblue; font-size: 30px }
 }
 
 .inputField1 {
-    height: 46px;width: 34%;margin:0px 0px 10px 0px;border: 3px solid lightslategrey;font-size: 25px;box-sizing: border-box;padding-left: 5px;
+    height: 40px;width: 67%;border: 3px solid #d3d3d3;;font-size: 25px;box-sizing: border-box;padding-left: 5px;
 }
 
 /* Clear floats (clearfix hack) */

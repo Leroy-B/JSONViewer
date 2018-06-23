@@ -4,6 +4,7 @@ var leftGlobalID = "";
 var rightGlobalID = "";
 var globalDATA;
 var resultRight;
+var JSONpath;
 
 var searchInputText;
 
@@ -45,7 +46,7 @@ $(document).ready(function() {
     
     //"https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts"
     
-    $('#requestJSONform').validate({
+    /*$('#requestJSONform').validate({
         
         submitHandler: function (form) {
             //JSONpath
@@ -82,7 +83,7 @@ $(document).ready(function() {
                 .always(function() { console.log('search ended!');});
             return false;
         }
-    });
+    });*/
 
     function findObjects(obj, targetProp, targetValue, finalResults) {
 
@@ -197,29 +198,40 @@ $(document).ready(function() {
         document.getElementById(this.id).outerHTML = "";
     });
     
-    $(document).on('click', '#searchInputButton', function () {
-        searchInputText = $("#searchInputText").val();
+    // REQUEST FUNCTION
+    $(document).on('click', '#requestJSONButton', function () {
         
-        var JSONpath = "https://cors-anywhere.herokuapp.com/http://mindpower.com/index.cfm/contacts/?";
-        console.log("JSONpath 1: " + JSONpath);
-        
-        var searchInputTextArray = searchInputText.split(";");
-        console.log(searchInputTextArray);
-        console.log("JSONpath 2: " + JSONpath);
-        
-        for(var i = 0; i<1; i++){
-            var temp = searchInputTextArray[i] + "&";
-            console.log(temp);
-            JSONpath += temp;
-            console.log("JSONpath 3: " + JSONpath);
-        }
-        JSONpath.slice(searchInputTextArray.length, -1);
-        console.log("JSONpath 4: " + JSONpath);
+        JSONpath = $("#requestJSONText").val();
         
         $.getJSON(JSONpath, function(data) {
                 globalDATA = data;
-                console.log(data);
                 $('#listKey').empty();
+                $('#listArray').empty();
+                for (i in globalDATA) {
+                    $("#listKey").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
+                }
+            })
+                .done(function() { console.log('request succeeded!'); })
+                .fail(function(jqXHR, textStatus, errorThrown) { console.log('request failed! ' + textStatus); alert("ERROR: request!") })
+                .always(function() { console.log('request ended!');});
+        
+    });
+    
+    // SEARCH FUNCTION
+    $(document).on('click', '#searchInputButton', function () {
+        
+        searchInputText = $("#searchInputText").val();
+        var searchInputTextArray = searchInputText.split(";");
+        
+        for(var i = 0; i<searchInputTextArray.length; i++){
+            var temp = searchInputTextArray[i] + "&";
+            JSONpath += temp;
+        }
+        
+        $.getJSON(JSONpath, function(data) {
+                globalDATA = data;
+                $('#listKey').empty();
+                $('#listArray').empty();
                 for (i in globalDATA) {
                     $("#listKey").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
                 }
@@ -228,16 +240,6 @@ $(document).ready(function() {
                 .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
                 .always(function() { console.log('search ended!');});
         
-    });
-    
-    var classSelected = 'selected';
-    var $thumbs = $(document).on('click', '.listItemLeft', function (e) {
-        console.log("hallo");
-        e.preventDefault();
-        $thumbs.removeClass(classSelected);
-        $(this).addClass(classSelected);
-        console.log(classSelected);
-        console.log($thumbs);
     });
     
     $(document).on('click', '.listItemLeft', function () {

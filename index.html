@@ -27,16 +27,16 @@
             <div class="flex_box_50">
                <div class="topMenu">
                    <span style="padding-left: 3%;" class="columnTitel"><b>1.</b> Request a JSON</span>
-                   <div class="btn-group" style="padding: 10px;">
+                   <div class="btnGroup" style="padding: 10px;">
                        <button id="requestJSONButton">Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
                        <input id="requestJSONText" placeholder="Link to a JSON" class="inputField" type="url" name="requestJSONURL">
                    </div>
                    <!--<span style="padding-left: 3%;" class="columnTitel"><b>2.</b> Search the requested JSON (eg. "alias=tinu" , "alias=tinu;city=wil")</span>
-                   <div class="btn-group1" style="padding: 10px;">
+                   <div class="btnGroup1" style="padding: 10px;">
                        <button id="searchInputButton">Search JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
                        <input placeholder="z.B. alias=tinu" id="searchInputText" class="inputField1" name="searchJSONURL">
                    </div>-->
-                   <!--<div class="btn-group1" style="padding: 10px;">
+                   <!--<div class="btnGroup1" style="padding: 10px;">
                        <button>Load whole JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
                        <button id="searchInputButton">Search JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
                        <input placeholder="z.B. alias=tinu" id="searchInputText" class="inputField1" name="searchJSONURL">
@@ -51,14 +51,14 @@
             <div class="flex_box_25">
             </div>
             <div class="flex_box_25">
-                <span class="columnTitel"><b>3.</b> Select dataset</span>
+                <span class="columnTitel"><b>2.</b> Select dataset</span>
                 <div class="scrollViewLeft">
                     <ul id="listLeft">
                     </ul>
                 </div>
             </div>
             <div class="flex_box_25">
-                <span class="columnTitel"><b>4.</b> Select attribute</span>
+                <span class="columnTitel"><b>3.</b> Select attribute</span>
                 <div class="searchboxInList">
                     <input placeholder="z.B. connectivity" id="searchInputText" class="inputField1" name="searchJSONURL">
                     <button id="searchInputButton">Search&nbsp;<i class="fas fa-angle-double-right"></i></button>
@@ -77,16 +77,32 @@
             <div class="flex_box_25">
             </div>
             <div class="flex_box_501">
-                <span class="columnTitel"><b>5.</b> Edit content</span>
+                <span class="columnTitel"><b>4.</b> Edit content</span>
                 <div style="margin-top: 10px" id="listEdit" class="bottomMenu">
 
                     <form>
                         <ul>
+                            
+                            <!--<li style="background-color: white; margin: 10px 0px">
+                                
+                                <h3 class="titelForTextbox" style="padding-left: 2%;text-align: left">Dataset:<input id="" class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
+                                
+                                <h3 class="titelForTextbox" style="padding-left: 8%;text-align: left">Attribut: ↳<input id="" class='listItemBottomAttribut' style='height: 35px;width: 66.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
+                                
+                                <h3 class="titelForTextbox" style="padding-left: 20%;text-align: left">Value: ↳<input id="" class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
+                                
+                                <div class="btnGroupForm">
+                                    <button>Send these changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                                    <button>Reset these changes&nbsp;<i class="fas fa-ban"></i></button>
+                                    <button>Remove this and cancel&nbsp;<i class="fas fa-times"></i></button>
+                                </div>
+                            </li>-->
+                            
                         </ul>
-                        <span style="padding-left: 75%;" class="columnTitel"><b>6.</b> Send changes</span>
-                        <div class="btn-group">
-                            <button>Send&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                            <button>Reset&nbsp;<i class="fas fa-ban"></i></button>
+                        <span style="padding-left: 75%;" class="columnTitel"><b>5.</b> Send changes</span>
+                        <div class="btnGroup">
+                            <button>Send all changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                            <button>Reset all changes&nbsp;<i class="fas fa-ban"></i></button>
                         </div>
                    </form>
                     
@@ -96,7 +112,7 @@
             </div>
         </div>
 
-        <h4>Leroy &copy;<br>by using this website you agree to give me a high five opon request</h4>
+        <h4>by using this website you agree to give me a high five opon request</h4>
 
     </body>
 </html>

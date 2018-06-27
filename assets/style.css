@@ -119,7 +119,7 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
                 padding-right: 10px;
             }
 
-.btn-group button {
+.btnGroup button {
     background-color: #ff8000; /* Green background */
     color: white; /* White text */
     cursor: pointer; /* Pointer/hand icon */
@@ -132,17 +132,18 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
     font-size: 18px;
 }
 
-.btn-group1 button {
-    background-color: #ff8000; /* Green background */
+.btnGroupForm button {
+    background-color: #a9a9a9; /* Green background */
     color: white; /* White text */
     cursor: pointer; /* Pointer/hand icon */
     float: right; /* Float the buttons side by side */
-    margin: auto;
-    width: 33%;
+    margin: -10px 0px 15px 0px;
+    width: 33.3%;
+    height: 35px;
     border: 3px solid #d3d3d3;
-    padding: 10px;
-    line-height: 20px;
-    font-size: 18px;
+    padding: 0px;
+    line-height: 17px;
+    font-size: 14px;
 }
 
 .inputField {

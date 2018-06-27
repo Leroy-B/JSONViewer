@@ -158,6 +158,8 @@ $(document).ready(function() {
         //$(this).parents(this.id).eq(1).remove();
         //$(this.id).remove();
         document.getElementById(this.id).outerHTML = "";
+        $(".scrollViewLeft ul li#" + rightGlobalID).css("background-color", "#969696");
+        console.log(rightGlobalID);
     });
     
     // REQUEST FUNCTION
@@ -218,7 +220,6 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.listItemRight', function () {
-        $(".scrollViewRight ul li").css("background-color", "#969696");
         $(".scrollViewRight ul li#" + this.id).css("background-color", "#ff8000");
         //$('#listEdit').empty();
         rightGlobalID = this.id;

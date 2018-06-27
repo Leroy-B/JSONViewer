@@ -82,10 +82,10 @@ $(document).ready(function() {
             } else {
                 for (var prop in theObject) {
                     if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
-                        $("#listArray").append($("<li class='sidesMenu1 listItemRight1' style='background-color: black; color: white;cursor: not-allowed;' id='" + prop + "'>").text(prop));
+                        $("#listRight").append($("<li class='sidesMenu1 listItemRight1' style='background-color: black; color: white;cursor: not-allowed;' id='" + prop + "'>").text(prop));
                         getObject1(theObject[prop]);
                     } else if (theObject.hasOwnProperty(prop)) {
-                        $("#listArray").append($("<li class='listItemRight' id='" + prop + "'>").text(prop));
+                        $("#listRight").append($("<li class='listItemRight' id='" + prop + "'>").text(prop));
                     }
                 }
             }
@@ -100,7 +100,7 @@ $(document).ready(function() {
             } else {
                 for (var prop in theObject) {
                     if (theObject.hasOwnProperty(prop)) {
-                        $("#listArray").append($("<li class='listItemRight' id='" + prop + "' style='padding-left:40px;'>").text("↳ " + prop));
+                        $("#listRight").append($("<li class='listItemRight' id='" + prop + "' style='padding-left:40px;'>").text("↳ " + prop));
                     }
                 }
             }
@@ -132,9 +132,7 @@ $(document).ready(function() {
                                     break;
                                 default:
                                     $("#listEdit ul").append($("<h3 id='"+ prop +"+"+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 64%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'>").val(theObject[prop]))));
-                                    
                                     $("#listEdit ul").append($("<input id='"+ prop +"+"+ leftGlobalID +"' type='button' class='idek' style='float: right;margin-top: -120px;    margin-right: 10px;'>").val("X"));
-                                    
                                     break;
                             }
                         }
@@ -165,14 +163,15 @@ $(document).ready(function() {
     // REQUEST FUNCTION
     $(document).on('click', '#requestJSONButton', function () {
         
-        JSONpath = $("#requestJSONText").val();
+        JSONpath = "https://cors-anywhere.herokuapp.com/"
+        JSONpath += $("#requestJSONText").val();
         
         $.getJSON(JSONpath, function(data) {
                 globalDATA = data;
-                $('#listKey').empty();
-                $('#listArray').empty();
+                $('#listLeft').empty();
+                $('#listRight').empty();
                 for (i in globalDATA) {
-                    $("#listKey").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
+                    $("#listLeft").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
                 }
             })
                 .done(function() { console.log('request succeeded!'); })
@@ -194,10 +193,10 @@ $(document).ready(function() {
         
         $.getJSON(JSONpath, function(data) {
                 globalDATA = data;
-                $('#listKey').empty();
-                $('#listArray').empty();
+                $('#listLeft').empty();
+                $('#listRight').empty();
                 for (i in globalDATA) {
-                    $("#listKey").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
+                    $("#listLeft").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
                 }
             })
                 .done(function() { console.log('search succeeded!'); })
@@ -209,7 +208,7 @@ $(document).ready(function() {
     $(document).on('click', '.listItemLeft', function () {
         $(".scrollViewLeft ul li").css("background-color", "#969696");
         $(".scrollViewLeft ul li#" + this.id).css("background-color", "#ff8000");
-        $('#listArray').empty();
+        $('#listRight').empty();
         leftGlobalID = this.id;
         findObjects(globalDATA, "alias", leftGlobalID, finalResults);
         findObjects1(finalResults);
@@ -220,6 +219,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.listItemRight', function () {
+        $(".scrollViewLeft ul li").css("background-color", "#969696");
         $(".scrollViewRight ul li#" + this.id).css("background-color", "#ff8000");
         //$('#listEdit').empty();
         rightGlobalID = this.id;

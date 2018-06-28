@@ -81,9 +81,53 @@ $(document).ready(function() {
         getObject(obj);
     }
     
-    function findObjectsAndChange(obj, targetProp, targetValue, finalResults) {
+    
+    /*function findAndReplace(object, key, value, replaceValue) {
+        for (var x in object) {
+            if (object.hasOwnProperty(x)) {
+                if (typeof object[x] == 'object') {
+                    findAndReplace(object[x], key, value, replaceValue);
+                }
+                if (object[x] == key) {
+                    alert("object[key]: " + object[key]);
+                    if (object[key].[x] == value) {
+                        alert("object[value]: " + object[value]);
+                        object[value] = replaceValue;
+                        // break; // uncomment to stop after first replacement
+                    }
+                    // break; // uncomment to stop after first replacement
+                }
+            }
+        }
+    }*/
+    
+    /*function updateNameById(obj, datasetKey, attributKey, newValue) {
+        Object.keys(obj).some(function(key) {
+            //alert("obj[key]: " + obj[key]);
+            if (obj[key].datasetKey == datasetKey) {
+                obj[key].attributKey = newValue;
+                return true;  // Stops looping
+            }
+            // Recurse over lower objects
+            else if (obj[key].datasetKey) {
+                return updateNameById(obj[key], datasetKey, attributKey, newValue);
+            }
+        })
+    }*/
 
-        function getObject(theObject) {
+    
+    
+    
+    function findObjectsAndChange(obj, targetKey, targetProp, targetValue, newValue) {
+
+        //find key by prop: alias
+        const myKey = Object.keys(obj).find(x => obj[x].alias === targetKey);
+        console.log("myKey: " + myKey);
+        console.log("obj[myKey.toString()]: " + obj[myKey.toString()][targetProp]);
+        obj[myKey.toString()][targetProp] = newValue;
+        
+        
+        /*function getObject(theObject) {
             if (theObject instanceof Array) {
                 for (var i = 0; i < theObject.length; i++) {
                     getObject(theObject[i]);
@@ -91,14 +135,16 @@ $(document).ready(function() {
             } else {
                 for (var prop in theObject) {
                     if (theObject.hasOwnProperty(prop)) {
-                        //console.log(prop + ': ' + theObject[prop]);
-                        if (prop === targetProp) {
-                            //console.log('found alias');
-                            if (theObject[prop] === targetValue) {
-                                //console.log('found prop', prop, ': ', theObject[prop]);
-                                finalResults.push(theObject);
+                        if(theObject[myKey.toString()] === targetKey){
+                            console.log("'myKey': " + myKey + " is eq to 'targetKey': " + targetKey);
+                            if (theObject[myKey.toString()].prop === targetProp) {
+                                console.log("'prop': " + prop + " is eq to 'targetProp': " + targetProp);
+                                if (theObject[prop] === targetValue) {
+                                    console.log("'theObject[prop]': " + theObject[prop] + " is eq to 'targetValue': " + targetValue);
+                                }
                             }
                         }
+                        
                         if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
                             getObject(theObject[prop]);
                         }
@@ -106,8 +152,16 @@ $(document).ready(function() {
                 }
             }
         }
-        getObject(obj);
+        getObject(obj);*/
     }
+    
+    
+    
+    
+    
+    
+    
+    
 
     function findObjectsFromListLeft(obj) {
 
@@ -200,14 +254,14 @@ $(document).ready(function() {
                                     /*$("#listEdit ul").append($("<iframe width='560' height='315' src='https://www.youtube.com/embed/YRdSAyIrQIw?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>"));*/
                                     break;
                                 default:
-                                    $("#listEdit ul").append($("<li class='listEditItem' id='" + globalLeftID + "+" + prop + "+" + theObject[prop] + "' style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" +theObject[prop] +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button id='" + globalLeftID + "_" + prop + "_" + theObject[prop] + "' class='listEditSendButton'>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button class='listEditResetButton'>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button class='listEditRemoveButton' id='ButtonID_" + prop + globalLeftID + theObject[prop] + "'>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
+                                    $("#listEdit ul").append($("<li class='listEditItem' id='" + globalLeftID + "+" + prop + "+" + theObject[prop] + "' style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input disabled id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" +theObject[prop] +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button id='" + globalLeftID + "+" + prop + "+" + theObject[prop] + "' class='listEditSendButton'>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button class='listEditResetButton'>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button class='listEditRemoveButton' id='ButtonID_" + prop + globalLeftID + theObject[prop] + "'>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
                                     
                                     ArrayForMagic[ArrayForMagic.length] = "ButtonID_" + prop + globalLeftID + theObject[prop];
                                     ArrayForMagic[ArrayForMagic.length] = "ListItemID_" + globalLeftID + prop + theObject[prop];
                                     
-                                    console.log(ArrayForMagic[0]);
-                                    console.log(ArrayForMagic[1]);
-                                    console.log(ArrayForMagic);
+                                    console.log("ArrayForMagic[0]: " + ArrayForMagic[0]);
+                                    console.log("ArrayForMagic[1]: " + ArrayForMagic[1]);
+                                    console.log("ArrayForMagic: " + ArrayForMagic);
                                     
                                     //filling the input fields based on ID
                                     $("#Dataset_" + globalLeftID + prop).val(globalLeftID);
@@ -315,9 +369,6 @@ $(document).ready(function() {
     $(document).on('click', ".listEditSendButton", function () {
         var currentValues = this.id;
         var origKeyValueArray = currentValues.split('+');
-        for(i in origKeyValueArray){
-            alert(origKeyValueArray[i]);
-        }
         
         console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
         console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
@@ -329,9 +380,11 @@ $(document).ready(function() {
         var newValue = $("#Value_" + origKeyValueArray[2]).val();
         console.log("current Value: " + newValue);
         
-        findObjectsAndChange(globalDATA, origKeyValueArray[0], origKeyValueArray[1], globalNewDATA);
+        globalNewDATA = globalDATA;
         
+        findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
         console.log(globalNewDATA);
+        
         
         //$(this).closest('tr').find('.display_image').attr(id);
         

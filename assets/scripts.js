@@ -2,14 +2,17 @@
  -  popup confirm changes
  -  datepicker for date fields
  -  dropzone for img
-
+ -  loading icon on list until requested json is filled
 */
 
-var leftGlobalID = "";
-var rightGlobalID = "";
+var globalLeftID = "";
+var globalRightID = "";
 var globalDATA;
+
 var resultRight;
 var JSONpath;
+
+var ArrayForMagic = [];
 
 var searchInputText;
 
@@ -59,11 +62,11 @@ $(document).ready(function() {
             } else {
                 for (var prop in theObject) {
                     if (theObject.hasOwnProperty(prop)) {
-                        console.log(prop + ': ' + theObject[prop]);
+                        //console.log(prop + ': ' + theObject[prop]);
                         if (prop === targetProp) {
-                            console.log('found alias');
+                            //console.log('found alias');
                             if (theObject[prop] === targetValue) {
-                                console.log('found prop', prop, ': ', theObject[prop]);
+                                //console.log('found prop', prop, ': ', theObject[prop]);
                                 finalResults.push(theObject);
                             }
                         }
@@ -77,7 +80,7 @@ $(document).ready(function() {
         getObject(obj);
     }
 
-    function findObjects1(obj) {
+    function findObjectsFromListLeft(obj) {
 
         function getObject(theObject) {
             if (theObject instanceof Array) {
@@ -130,42 +133,57 @@ $(document).ready(function() {
                                 case "Data":
                                     var image = new Image();
                                     image.src = "data:image/jpeg;base64," + theObject[prop];
-                                    $("#listEdit ul").append($("<li style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + leftGlobalID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>Attribut: ↳<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 66.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>Value: ↳<img src='"+image.src+"' height='64px' width='64px'></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
+                                    $("#listEdit ul").append($("<li style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>Attribut: ↳<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>Value: ↳<img src='"+image.src+"' height='64px' width='64px'></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
                                     
                                     //filling the input fields based on ID
-                                    $("#Dataset_" + leftGlobalID + prop).val(leftGlobalID);
+                                    $("#Dataset_" + globalLeftID + prop).val(globalLeftID);
                                     $("#Attribut_" + prop).val(prop);
                                     $("#Value_" + theObject[prop]).val(theObject[prop]);
                                     
                                     break;
-                                case "url":
-                                    
+                                case "title":
+                                    alert(theObject[prop]);
                                     var URLTitel = theObject[prop];
-                                    URLTitel = URLTitel.replace(/\s/g,'');
-                                    console.log("======================== Video Titel cut" + URLTitel)
+                                    URLTitel = URLTitel.replace(/\s/g,"");
+                                    URLTitel = URLTitel.replace("?","_");
+                                    alert(URLTitel);
                                     
-                                    $("#listEdit ul").append($("<li style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + leftGlobalID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 66.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" + URLTitel +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
-                                    
-                                    /*$("#listEdit ul").append($("<li style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + leftGlobalID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>Attribut: ↳<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 66.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>Value: ↳<input id='Value_" + URLTitel +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'><iframe id='Value_" +theObject[prop] +"' style='margin-left: -20.5%;' width='500' height='290' src='https://www.youtube.com/embed/YRdSAyIrQIw?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));*/
+                                    $("#listEdit ul").append($("<li style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" + URLTitel +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
                                     
                                     //filling the input fields based on ID
-                                    $("#Dataset_" + leftGlobalID + prop).val(leftGlobalID);
+                                    $("#Dataset_" + globalLeftID + prop).val(globalLeftID);
                                     $("#Attribut_" + prop).val(prop);
-                                    $("#Value_" + theObject[prop]).val(theObject[prop]);
+                                    $("#Value_" + URLTitel).val(theObject[prop]);
+                                    
+                                    break;
+                                case "url":
+                                    var URLcutString = theObject[prop];
+                                    URLcutString = URLcutString.replace("https://www.youtube.com/watch?v=","");
+                                    
+                                    $("#listEdit ul").append($("<li id='' style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" + URLcutString +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'><iframe id='Value_' style='margin-left: -20.5%;' width='500' height='290' src='https://www.youtube.com/embed/" + URLcutString + "?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
+                                    
+                                    //filling the input fields based on ID
+                                    $("#Dataset_" + globalLeftID + prop).val(globalLeftID);
+                                    $("#Attribut_" + prop).val(prop);
+                                    $("#Value_" + URLcutString).val(theObject[prop]);
                                     
                                     
                                     /*$("#listEdit ul").append($("<iframe width='560' height='315' src='https://www.youtube.com/embed/YRdSAyIrQIw?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>"));*/
                                     break;
                                 default:
-                                    $("#listEdit ul").append($("<li style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + leftGlobalID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 66.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" +theObject[prop] +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
+                                    $("#listEdit ul").append($("<li id='" + globalLeftID + prop + theObject[prop] + "' style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" +theObject[prop] +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button class='listEditRemoveButton' id='ButtonID_" + prop + globalLeftID + theObject[prop] + "'>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
+                                    
+                                    ArrayForMagic[ArrayForMagic.length - 1] = "ButtonID_" + prop + globalLeftID + theObject[prop];
+                                    ArrayForMagic[ArrayForMagic.length] = "ListItemID_" + globalLeftID + prop + theObject[prop];
+                                    
+                                    console.log(ArrayForMagic[0]);
+                                    console.log(ArrayForMagic[1]);
+                                    console.log(ArrayForMagic);
                                     
                                     //filling the input fields based on ID
-                                    $("#Dataset_" + leftGlobalID + prop).val(leftGlobalID);
+                                    $("#Dataset_" + globalLeftID + prop).val(globalLeftID);
                                     $("#Attribut_" + prop).val(prop);
                                     $("#Value_" + theObject[prop]).val(theObject[prop]);
-                                    
-                                    /*$("#listEdit ul").append($("<h3 id='"+ prop +"+"+ leftGlobalID +"' class='titelForTextbox' style='padding: 10px;margin-right: 10px; text-align: left'></h3>").text(leftGlobalID + " ").append($("<h3 class='titelForTextbox' style='padding-left: 25px;text-align: left'></h3>").text("↳ " + prop + ": ").append($("<input id='" + prop + "' class='listItemBottom' style='height: 35px;width: 64%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'>").val(theObject[prop]))));
-                                    $("#listEdit ul").append($("<input id='"+ prop +"+"+ leftGlobalID +"' type='button' class='idek' style='float: right;margin-top: -120px;    margin-right: 10px;'>").val("X"));*/
                                     break;
                             }
                         }
@@ -189,27 +207,28 @@ $(document).ready(function() {
         //$(this).parents(this.id).eq(1).remove();
         //$(this.id).remove();
         document.getElementById(this.id).outerHTML = "";
-        $(".scrollViewLeft ul li#" + rightGlobalID).css("background-color", "#969696");
-        console.log(rightGlobalID);
+        $(".scrollViewLeft ul li#" + globalRightID).css("background-color", "#969696");
+        console.log(globalRightID);
     });
     
     // REQUEST FUNCTION
     $(document).on('click', '#requestJSONButton', function () {
         
-        JSONpath = "https://cors-anywhere.herokuapp.com/"
+        JSONpath = ""//"https://cors-anywhere.herokuapp.com/"
         JSONpath += $("#requestJSONText").val();
         
         $.getJSON(JSONpath, function(data) {
-                globalDATA = data;
-                $('#listLeft').empty();
-                $('#listRight').empty();
-                for (i in globalDATA) {
-                    $("#listLeft").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
-                }
-            })
-                .done(function() { console.log('request succeeded!'); })
-                .fail(function(jqXHR, textStatus, errorThrown) { console.log('request failed! ' + textStatus); alert("ERROR: The link you provieded does NOT point to a valid JSON file!") })
-                .always(function() { console.log('request ended!');});
+            globalDATA = data;
+            console.log(data);
+            $('#listLeft').empty();
+            $('#listRight').empty();
+            for (i in globalDATA) {
+                $("#listLeft").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
+            }
+        })
+            .done(function() { console.log('request succeeded!'); })
+            .fail(function(jqXHR, textStatus, errorThrown) { console.log('request failed! ' + textStatus); alert("ERROR: The link you provieded does NOT point to a valid JSON file!") })
+            .always(function() { console.log('request ended!');});
         
     });
     
@@ -242,9 +261,11 @@ $(document).ready(function() {
         $(".scrollViewLeft ul li").css("background-color", "#969696");
         $(".scrollViewLeft ul li#" + this.id).css("background-color", "#ff8000");
         $('#listRight').empty();
-        leftGlobalID = this.id;
-        findObjects(globalDATA, "alias", leftGlobalID, finalResults);
-        findObjects1(finalResults);
+        globalLeftID = this.id;
+        
+        //findObjects(obj [JSON data], targetProp [the property to look for], targetValue [], finalResults [])
+        findObjects(globalDATA, "alias", globalLeftID, finalResults);
+        findObjectsFromListLeft(finalResults);
 
         //reset value
         finalResultsForList = finalResults;
@@ -255,13 +276,27 @@ $(document).ready(function() {
         /*$(".scrollViewRight ul li").css("background-color", "#969696");
         $(".scrollViewRight ul li#" + this.id).css("background-color", "#ff8000");*/
         //$('#listEdit').empty();
-        rightGlobalID = this.id;
+        globalRightID = this.id;
         console.log('right ID: ' + this.id);
-        findObjects(finalResultsForList, rightGlobalID, rightGlobalID, finalResultsForList);
+        findObjects(finalResultsForList, globalRightID, globalRightID, finalResultsForList);
         console.log("============ finalResultsForList: " +finalResultsForList);
-        findObjects2(finalResultsForList, rightGlobalID);
+        findObjects2(finalResultsForList, globalRightID);
     });
-
+    
+    
+    ///// DO THIS !!!!!!
+    $(document).on('click', ".listEditRemoveButton", function () {
+        alert("remove: " + this.id);
+        //alert("remove: " + ArrayForMagic.find(this.id));
+        //ArrayForMagic.find(this.id);
+        //$("#" + this.id).closest('.li').remove();
+        //$("#" + this.id).remove();
+    });
+    
+    /*$(document).on('click', ArrayForMagic[globalVar1][globalVar2], function () {
+        $(ArrayForMagic[globalVar1][2]).remove();
+    });*/
+    
     // Listeners for input change on the edit fields
     $(document).on('input', '.listItemBottomDataset', function () {
         $(".listItemBottomDataset").css("border", "3px solid #ff8000");

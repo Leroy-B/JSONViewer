@@ -8,6 +8,7 @@
 var globalLeftID = "";
 var globalRightID = "";
 var globalDATA;
+var globalNewDATA;
 
 var resultRight;
 var JSONpath;
@@ -53,6 +54,34 @@ $(document).ready(function() {
     }
 
     function findObjects(obj, targetProp, targetValue, finalResults) {
+
+        function getObject(theObject) {
+            if (theObject instanceof Array) {
+                for (var i = 0; i < theObject.length; i++) {
+                    getObject(theObject[i]);
+                }
+            } else {
+                for (var prop in theObject) {
+                    if (theObject.hasOwnProperty(prop)) {
+                        //console.log(prop + ': ' + theObject[prop]);
+                        if (prop === targetProp) {
+                            //console.log('found alias');
+                            if (theObject[prop] === targetValue) {
+                                //console.log('found prop', prop, ': ', theObject[prop]);
+                                finalResults.push(theObject);
+                            }
+                        }
+                        if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
+                            getObject(theObject[prop]);
+                        }
+                    }
+                }
+            }
+        }
+        getObject(obj);
+    }
+    
+    function findObjectsAndChange(obj, targetProp, targetValue, finalResults) {
 
         function getObject(theObject) {
             if (theObject instanceof Array) {
@@ -171,9 +200,9 @@ $(document).ready(function() {
                                     /*$("#listEdit ul").append($("<iframe width='560' height='315' src='https://www.youtube.com/embed/YRdSAyIrQIw?rel=0' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>"));*/
                                     break;
                                 default:
-                                    $("#listEdit ul").append($("<li id='" + globalLeftID + prop + theObject[prop] + "' style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" +theObject[prop] +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button class='listEditRemoveButton' id='ButtonID_" + prop + globalLeftID + theObject[prop] + "'>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
+                                    $("#listEdit ul").append($("<li class='listEditItem' id='" + globalLeftID + "+" + prop + "+" + theObject[prop] + "' style='background-color: white; margin: 10px 0px'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input id='Dataset_" + globalLeftID + prop +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + prop +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" +theObject[prop] +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button id='" + globalLeftID + "_" + prop + "_" + theObject[prop] + "' class='listEditSendButton'>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button class='listEditResetButton'>Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button class='listEditRemoveButton' id='ButtonID_" + prop + globalLeftID + theObject[prop] + "'>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
                                     
-                                    ArrayForMagic[ArrayForMagic.length - 1] = "ButtonID_" + prop + globalLeftID + theObject[prop];
+                                    ArrayForMagic[ArrayForMagic.length] = "ButtonID_" + prop + globalLeftID + theObject[prop];
                                     ArrayForMagic[ArrayForMagic.length] = "ListItemID_" + globalLeftID + prop + theObject[prop];
                                     
                                     console.log(ArrayForMagic[0]);
@@ -214,7 +243,7 @@ $(document).ready(function() {
     // REQUEST FUNCTION
     $(document).on('click', '#requestJSONButton', function () {
         
-        JSONpath = ""//"https://cors-anywhere.herokuapp.com/"
+        JSONpath = "https://cors-anywhere.herokuapp.com/"
         JSONpath += $("#requestJSONText").val();
         
         $.getJSON(JSONpath, function(data) {
@@ -283,19 +312,46 @@ $(document).ready(function() {
         findObjects2(finalResultsForList, globalRightID);
     });
     
-    
-    ///// DO THIS !!!!!!
-    $(document).on('click', ".listEditRemoveButton", function () {
-        alert("remove: " + this.id);
-        //alert("remove: " + ArrayForMagic.find(this.id));
-        //ArrayForMagic.find(this.id);
-        //$("#" + this.id).closest('.li').remove();
-        //$("#" + this.id).remove();
+    $(document).on('click', ".listEditSendButton", function () {
+        var currentValues = this.id;
+        var origKeyValueArray = currentValues.split('+');
+        for(i in origKeyValueArray){
+            alert(origKeyValueArray[i]);
+        }
+        
+        console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
+        console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
+        console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
+        
+        console.log("Key: " + origKeyValueArray[0]);
+        console.log("Value: " + origKeyValueArray[1]);
+        
+        var newValue = $("#Value_" + origKeyValueArray[2]).val();
+        console.log("current Value: " + newValue);
+        
+        findObjectsAndChange(globalDATA, origKeyValueArray[0], origKeyValueArray[1], globalNewDATA);
+        
+        console.log(globalNewDATA);
+        
+        //$(this).closest('tr').find('.display_image').attr(id);
+        
+        /*jQuery.ajax({
+            headers: { 
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            },
+            'type': 'POST',
+            'url': "http://mindpower.com/index.cfm/contacts",
+            'data': JSON.stringify(error),
+            'dataType': 'json',
+            'success': callback
+        });*/
     });
     
-    /*$(document).on('click', ArrayForMagic[globalVar1][globalVar2], function () {
-        $(ArrayForMagic[globalVar1][2]).remove();
-    });*/
+    $(document).on('click', ".listEditRemoveButton", function () {
+        //alert("remove: " + this.id);
+        $("#" + this.id).closest('.listEditItem').remove();
+    });
     
     // Listeners for input change on the edit fields
     $(document).on('input', '.listItemBottomDataset', function () {

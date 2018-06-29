@@ -388,6 +388,23 @@ $(document).ready(function() {
         
         //$(this).closest('tr').find('.display_image').attr(id);
         
+        
+        // TODO reload json on successful Post/Put
+        
+        $.ajax({
+            type: 'POST',
+            url: 'http://mindpower.com/index.cfm/contacts',
+            crossDomain: true,
+            data: JSON.stringify(globalNewDATA),
+            dataType: 'json',
+            success: function(responseData, textStatus, jqXHR) {
+                console.log("SUCCESS!; " + responseData);
+            },
+            error: function (responseData, textStatus, errorThrown) {
+                console.log("POST failed!; " + responseData);
+            }
+        });
+        
         /*jQuery.ajax({
             headers: { 
                 'Accept': 'application/json',
@@ -395,9 +412,12 @@ $(document).ready(function() {
             },
             'type': 'POST',
             'url': "http://mindpower.com/index.cfm/contacts",
-            'data': JSON.stringify(error),
+            'data': JSON.stringify(globalNewDATA),
             'dataType': 'json',
-            'success': callback
+            'success': function () {
+                console.log("SUCCESS!");
+                
+            }
         });*/
     });
     

@@ -196,7 +196,7 @@ $(document).ready(function() {
                 }
             }
         }
-        getObject(obj);
+        getObject1(obj);
         
     }
 

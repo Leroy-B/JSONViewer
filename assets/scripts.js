@@ -289,15 +289,16 @@ $(document).ready(function() {
     
     // REQUEST FUNCTION
     $(document).on('click', '#requestJSONButton', function () {
-        
+        $(".lds-ellipsis#left").css("display", "block");
         JSONpath = "https://cors-anywhere.herokuapp.com/"
         JSONpath += $("#requestJSONText").val();
         
         $.getJSON(JSONpath, function(data) {
             globalDATA = data;
             console.log(data);
-            $('#listLeft').empty();
+            
             $('#listRight').empty();
+            $('#listLeft').empty();
             for (i in globalDATA) {
                 $("#listLeft").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
             }

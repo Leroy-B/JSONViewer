@@ -72,6 +72,8 @@ $(document).ready(function() {
                             if (theObject[prop] === targetValue) {
                                 //console.log('found prop', prop, ': ', theObject[prop]);
                                 finalResults.push(theObject);
+                            } else if ("test" === targetValue){
+                                
                             }
                         }
                         if (theObject[prop] instanceof Object || theObject[prop] instanceof Array) {
@@ -366,7 +368,7 @@ $(document).ready(function() {
     });
     
     // SEARCH FUNCTION
-    $(document).on('click', '#searchInputButton', function () {
+    /*$(document).on('click', '#searchInputButton', function () {
         
         searchInputText = $("#searchInputText").val();
         var searchInputTextArray = searchInputText.split(";");
@@ -388,6 +390,27 @@ $(document).ready(function() {
                 .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
                 .always(function() { console.log('search ended!');});
         
+    });*/
+    $(document).on('click', '#searchInputButton', function () {
+
+        searchInputText = $("#searchInputText").val();
+        const myKeyToPut = Object.keys(globalDATA).find(x => globalDATA[x].alias === globalLeftID);
+        var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;;
+
+        $.getJSON(putURL, function(data) {
+                /*$('#listLeft').empty();*/
+            $('#listRight').empty();
+            findObjects(data, searchInputText, "test", finalResults);
+            console.log(finalResults);
+            findObjectsFromListLeft(finalResults);
+            
+                /*for (i in data) {
+                    $("#listRight").append($("<li class='listItemRight' id='" + data[i].searchInputText + "'>").text(i + ": " + data[i].searchInputText));
+                }*/
+            })
+                .done(function() { console.log('search succeeded!'); })
+                .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
+                .always(function() { console.log('search ended!');});
     });
     
     $(document).on('click', '.listItemLeft', function () {

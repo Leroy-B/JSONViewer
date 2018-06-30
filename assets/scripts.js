@@ -384,6 +384,7 @@ $(document).ready(function() {
         
         findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
         console.log(globalNewDATA);
+        console.log(JSON.stringify(globalNewDATA));
         
         
         //$(this).closest('tr').find('.display_image').attr(id);
@@ -391,17 +392,25 @@ $(document).ready(function() {
         
         // TODO reload json on successful Post/Put
         
+        const myKeyToPut = Object.keys(globalNewDATA).find(x => globalNewDATA[x].alias === origKeyValueArray[0]);
+        
+        var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;
+        
+        console.log("putURL: " + putURL);
+        console.log("JSON to send: " + globalNewDATA[myKeyToPut]);
+        
         $.ajax({
             type: 'PUT',
-            url: 'http://mindpower.com/index.cfm/contacts',
+            url: putURL,
             crossDomain: true,
-            data: JSON.stringify(globalNewDATA),
+            data: JSON.stringify(globalNewDATA[myKeyToPut]),
             dataType: 'json',
-            success: function(responseData, textStatus, jqXHR) {
-                console.log("SUCCESS!; " + responseData);
+            contentType: 'application/json',
+            success: function(responseData, textStatus) {
+                console.log("SUCCESS!; responseData: " + responseData + "; textStatus: " + textStatus + "; jqXHR: " + jqXHR);
             },
             error: function (responseData, textStatus, errorThrown) {
-                console.log("POST failed!; " + responseData);
+                console.log("POST failed!; responseData: " + responseData + "; textStatus: " + textStatus + "; errorThrown: " + errorThrown);
             }
         });
         

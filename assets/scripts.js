@@ -155,14 +155,6 @@ $(document).ready(function() {
         getObject(obj);*/
     }
     
-    
-    
-    
-    
-    
-    
-    
-
     function findObjectsFromListLeft(obj) {
 
         function getObject(theObject) {
@@ -176,7 +168,7 @@ $(document).ready(function() {
                         $("#listRight").append($("<li class='sidesMenu1 listItemRight1' style='background-color: black; color: white;cursor: not-allowed;' id='" + prop + "'>").text(prop));
                         getObject1(theObject[prop]);
                     } else if (theObject.hasOwnProperty(prop)) {
-                        $("#listRight").append($("<li class='listItemRight' id='" + prop + "'>").text(prop));
+                        $("#listRight").append($("<li class='listItemRight' id='" + prop + "'>").text(prop + ": " + theObject[prop]));
                     }
                 }
             }
@@ -191,7 +183,7 @@ $(document).ready(function() {
             } else {
                 for (var prop in theObject) {
                     if (theObject.hasOwnProperty(prop)) {
-                        $("#listRight").append($("<li class='listItemRight' id='" + prop + "' style='padding-left:40px;'>").text("↳ " + prop));
+                        $("#listRight").append($("<li class='listItemRight' id='" + prop + "' style='padding-left:40px;'>").text("↳ " + prop + ": " + theObject[prop]));
                     }
                 }
             }
@@ -367,6 +359,7 @@ $(document).ready(function() {
     });
     
     $(document).on('click', ".listEditSendButton", function () {
+        event.preventDefault();
         var currentValues = this.id;
         var origKeyValueArray = currentValues.split('+');
         
@@ -432,6 +425,7 @@ $(document).ready(function() {
     
     $(document).on('click', ".listEditRemoveButton", function () {
         //alert("remove: " + this.id);
+        event.preventDefault();
         $("#" + this.id).closest('.listEditItem').remove();
     });
     

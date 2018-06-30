@@ -392,7 +392,7 @@ $(document).ready(function() {
         // TODO reload json on successful Post/Put
         
         $.ajax({
-            type: 'POST',
+            type: 'PUT',
             url: 'http://mindpower.com/index.cfm/contacts',
             crossDomain: true,
             data: JSON.stringify(globalNewDATA),

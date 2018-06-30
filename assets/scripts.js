@@ -3,6 +3,7 @@
  -  datepicker for date fields
  -  dropzone for img
  -  loading icon on list until requested json is filled
+ -  input fields correct lenght -> eg: sex 1 char, fon only num ect. 
 */
 
 var globalLeftID = "";
@@ -188,7 +189,7 @@ $(document).ready(function() {
                 }
             }
         }
-        getObject1(obj);
+        //getObject1(theObject[prop]);
         
     }
 
@@ -399,7 +400,7 @@ $(document).ready(function() {
             data: JSON.stringify(globalNewDATA[myKeyToPut]),
             dataType: 'json',
             contentType: 'application/json',
-            success: function(responseData, textStatus) {
+            success: function(responseData, textStatus, jqXHR) {
                 console.log("SUCCESS!; responseData: " + responseData + "; textStatus: " + textStatus + "; jqXHR: " + jqXHR);
             },
             error: function (responseData, textStatus, errorThrown) {

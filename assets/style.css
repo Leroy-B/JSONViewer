@@ -1,4 +1,4 @@
-*   { margin: 0px; padding: 0px; }
+*   {margin: 0px; padding: 0px;}
 body {  }
             
 ul  { list-style-type: none; }            
@@ -7,7 +7,8 @@ h3 {  background-color: white; right: 0; margin-right: 10px; margin-bottom: 10px
 h4 {     text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
 b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
         
-.flex_container { display: flex; align-items: stretch; background-color: #f1f1f1; }
+.flex_container { justify-content: center; display: flex; align-items: stretch; background-color: #f1f1f1; }
+.flex_box_100 { width: 100%; display: flex;}
 .flex_box_50 { width: 50%; }
 .flex_box_501 { width: 48.5%; }
 .flex_box_25 { width: 25%; }
@@ -133,6 +134,21 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
     font-size: 18px;
 }
 
+.btnGroup button:hover {
+    background-color: #ffa041; /* Green background */
+    color: white; /* White text */
+    cursor: pointer; /* Pointer/hand icon */
+    float: right; /* Float the buttons side by side */
+    margin: auto;
+    width: 50%;
+    border: 3px solid #d3d3d3;
+    padding: 10px;
+    line-height: 20px;
+    font-size: 18px;
+}
+
+
+
 .btnGroupForm button {
     background-color: #a9a9a9; /* Green background */
     color: white; /* White text */
@@ -228,4 +244,27 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
   100% {
     transform: translate(19px, 0);
   }
+}
+
+
+.tablink {
+    background-color: #ff8000;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin: auto;
+    width: 50%;
+    border: 3px solid #d3d3d3;
+    padding: 10px;
+    line-height: 20px;
+    font-size: 18px;
+}
+
+
+
+.tablink:hover {
+    background-color: #ffa041;
+}
+
+.tabcontent {
 }

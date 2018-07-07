@@ -1,5 +1,4 @@
 /* TODO:
- -  CORS workaround
  -  datepicker for date fields
  -  dropzone for img
  -  input fields correct lenght -> eg: sex 1 char, fon only num ect.
@@ -26,21 +25,37 @@ var searchInputText;
 
 function resetChangesInFields(currentValues){
             
-        console.log("this.id: " + this.id);
-        console.log("currentValues: " + currentValues);
-        origKeyValueArray = currentValues.split('+');
+    console.log("this.id: " + this.id);
+    console.log("currentValues: " + currentValues);
+    origKeyValueArray = currentValues.split('+');
         
-        console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
-        console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
-        console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
+    console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
+    console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
+    console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
         
-        $("#Attribut_" + origKeyValueArray[1]).val(origKeyValueArray[1]);
-        $("#Value_" + origKeyValueArray[2]).val(origKeyValueArray[2]);
+    $("#Attribut_" + origKeyValueArray[1]).val(origKeyValueArray[1]);
+    $("#Value_" + origKeyValueArray[2]).val(origKeyValueArray[2]);
+}
+
+function openPage(pageName,elmnt,color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
     }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    
+
+}
 
 $(document).ready(function() {
     
-    
+    document.getElementById("defaultOpen").click();
+    $("#defaultOpen").css("background-color", "#ffa041");
 
     function isArray(what) {
         return Object.prototype.toString.call(what) === '[object Array]';

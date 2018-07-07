@@ -15,7 +15,7 @@
         
     </head>
     <body>
-
+        
         <div class="box">
             <img style="vertical-align:middle; height: auto; width: 45px;" src="assets/jsonTitel.png">
             <span style="">JSON Editor</span>
@@ -31,87 +31,93 @@
                        <button id="requestJSONButton">Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
                        <input id="requestJSONText" placeholder="Link to a JSON" class="inputField" type="url" name="requestJSONURL">
                    </div>
-                   <!--<span style="padding-left: 3%;" class="columnTitel"><b>2.</b> Search the requested JSON (eg. "alias=tinu" , "alias=tinu;city=wil")</span>
-                   <div class="btnGroup1" style="padding: 10px;">
-                       <button id="searchInputButton">Search JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                       <input placeholder="z.B. alias=tinu" id="searchInputText" class="inputField1" name="searchJSONURL">
-                   </div>-->
-                   <!--<div class="btnGroup1" style="padding: 10px;">
-                       <button>Load whole JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                       <button id="searchInputButton">Search JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                       <input placeholder="z.B. alias=tinu" id="searchInputText" class="inputField1" name="searchJSONURL">
-                   </div>-->
                 </div> 
             </div>
             <div class="flex_box_25">
             </div>
         </div>
         
-        <div class="flex_container">
-            <div class="flex_box_25">
-            </div>
-            <div class="flex_box_25">
-                <span class="columnTitel"><b>2.</b> Select dataset</span>
-                <div class="scrollViewLeft">
-                    <ul id="listLeft">
-                        <div class="lds-ellipsis" id="left"><div></div><div></div><div></div><div></div></div>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex_box_25">
-                <span class="columnTitel"><b>3.</b> Select attribute</span>
-                <div class="searchboxInList">
-                    <input placeholder="z.B. connectivity" id="searchInputText" class="inputField1" name="searchJSONURL">
-                    <button id="searchInputButton">Search&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                </div>
-                <div class="scrollViewRight">
-                    
-                    <ul id="listRight">
-                    </ul>
-                </div>
-            </div>
-            <div class="flex_box_25">
-            </div>
+        <div style="text-align: center;">
+            <ul style="display: inline-flex;">
+                <button class="tablink" id="defaultOpen" onclick="openPage('tabEdit')">edit</button>
+                <button class="tablink" onclick="openPage('tabAdd')">add</button>
+            </ul>
         </div>
-
+        
         <div class="flex_container">
-            <div class="flex_box_25">
-            </div>
-            <div class="flex_box_501">
-                <span class="columnTitel"><b>4.</b> Edit content</span>
-                <div style="margin-top: 10px" id="listEdit" class="bottomMenu">
-
-                    <form>
-                        <ul>
-                            
-                            <!--<li style="background-color: white; margin: 10px 0px">
-                                
-                                <h3 class="titelForTextbox" style="padding-left: 2%;text-align: left">Dataset:<input id="" class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
-                                
-                                <h3 class="titelForTextbox" style="padding-left: 8%;text-align: left">Attribut: ↳<input id="" class='listItemBottomAttribut' style='height: 35px;width: 66.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
-                                
-                                <h3 class="titelForTextbox" style="padding-left: 20%;text-align: left">Value: ↳<input id="" class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
-                                
-                                <div class="btnGroupForm">
-                                    <button>Send these changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                                    <button>Reset these changes&nbsp;<i class="fas fa-ban"></i></button>
-                                    <button>Remove this and cancel&nbsp;<i class="fas fa-times"></i></button>
-                                </div>
-                            </li>-->
-                            
-                        </ul>
-                        <span style="padding-left: 75%;" class="columnTitel"><b>5.</b> Send changes</span>
-                        <div class="btnGroup">
-                            <button>Send all changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                            <button>Reset all changes&nbsp;<i class="fas fa-ban"></i></button>
+            <div class="flex_box_100 tabcontent" id="tabEdit">
+                <div class="flex_box_100">
+                    <div class="flex_box_25">
+                    </div>
+                    <div class="flex_box_25">
+                        <span class="columnTitel"><b>2.</b> Select dataset</span>
+                        <div class="scrollViewLeft">
+                            <ul id="listLeft">
+                                <div class="lds-ellipsis" id="left"><div></div><div></div><div></div><div></div></div>
+                            </ul>
                         </div>
-                   </form>
-                    
-                </div> 
+                    </div>
+                    <div class="flex_box_25">
+                        <span class="columnTitel"><b>3.</b> Select attribute</span>
+                        <div class="searchboxInList">
+                            <input placeholder="z.B. connectivity" id="searchInputText" class="inputField1" name="searchJSONURL">
+                            <button id="searchInputButton">Search&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                        </div>
+                        <div class="scrollViewRight">
+
+                            <ul id="listRight">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex_box_25">
+                    </div>
+                </div>
+
+                <div class="flex_container">
+                    <div class="flex_box_25">
+                    </div>
+                    <div class="flex_box_501">
+                        <span class="columnTitel"><b>4.</b> Edit content</span>
+                        <div style="margin-top: 10px" id="listEdit" class="bottomMenu">
+
+                            <form>
+                                <ul>
+
+                                    <!--<li style="background-color: white; margin: 10px 0px">
+
+                                        <h3 class="titelForTextbox" style="padding-left: 2%;text-align: left">Dataset:<input id="" class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
+
+                                        <h3 class="titelForTextbox" style="padding-left: 8%;text-align: left">Attribut: ↳<input id="" class='listItemBottomAttribut' style='height: 35px;width: 66.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
+
+                                        <h3 class="titelForTextbox" style="padding-left: 20%;text-align: left">Value: ↳<input id="" class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3>
+
+                                        <div class="btnGroupForm">
+                                            <button>Send these changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                                            <button>Reset these changes&nbsp;<i class="fas fa-ban"></i></button>
+                                            <button>Remove this and cancel&nbsp;<i class="fas fa-times"></i></button>
+                                        </div>
+                                    </li>-->
+
+                                </ul>
+                                <span style="padding-left: 75%;" class="columnTitel"><b>5.</b> Send changes</span>
+                                <div class="btnGroup">
+                                    <button>Send all changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                                    <button>Reset all changes&nbsp;<i class="fas fa-ban"></i></button>
+                                </div>
+                           </form>
+
+                        </div> 
+                    </div>
+                    <div class="flex_box_25">
+                    </div>
+                </div>
             </div>
-            <div class="flex_box_25">
+            <div class="flex_container tabcontent" id="tabAdd">
+                
             </div>
         </div>
+        
+        
 
         <h4>by using this website you agree to give me a high five opon request</h4>
 

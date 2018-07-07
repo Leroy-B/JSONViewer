@@ -1,4 +1,5 @@
 /* TODO:
+ -  CORS workaround
  -  datepicker for date fields
  -  dropzone for img
  -  input fields correct lenght -> eg: sex 1 char, fon only num ect.

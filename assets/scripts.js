@@ -23,6 +23,21 @@ var origKeyValueArray = [];
 
 var searchInputText;
 
+
+function resetChangesInFields(currentValues){
+            
+        console.log("this.id: " + this.id);
+        console.log("currentValues: " + currentValues);
+        origKeyValueArray = currentValues.split('+');
+        
+        console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
+        console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
+        console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
+        
+        $("#Attribut_" + origKeyValueArray[1]).val(origKeyValueArray[1]);
+        $("#Value_" + origKeyValueArray[2]).val(origKeyValueArray[2]);
+    }
+
 $(document).ready(function() {
     
     
@@ -210,20 +225,20 @@ $(document).ready(function() {
                 break;
             default:
                 $("#listEdit ul").append($("<li class='listEditItem' id='" + globalLeftIDforFunc + "+" + propForFunc + "+" + theObjectPropForFunc + "' style='background-color: white; margin: 10px 0px; margin-bottom: 8%; border: solid 3px #ff8000;'><h3 class='titelForTextbox' style='padding-left: 2%;text-align: left'>Dataset:<input disabled id='Dataset_" + globalLeftIDforFunc + propForFunc +"' class='listItemBottomDataset' style='height: 35px;width: 75%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 8%;text-align: left'>↳ Attribut:<input id='Attribut_" + propForFunc +"' class='listItemBottomAttribut' style='height: 35px;width: 68.8%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><h3 class='titelForTextbox' style='padding-left: 20%;text-align: left'>↳ Value:<input id='Value_" + theObjectPropForFunc +"' class='listItemBottomValue' style='height: 35px;width: 67.5%;margin: 10px 10px;border: 3px solid lightslategrey;padding-left: 3px;font-size: 15px;'></h3><div class='btnGroupForm'><button id='" + globalLeftIDforFunc + "+" + propForFunc + "+" + theObjectPropForFunc + "' class='listEditSendButton'>Send these changes&nbsp;<i class='fas fa-angle-double-right'></i></button><button class='listEditResetButton' id='" + globalLeftIDforFunc + "+" + propForFunc + "+" + theObjectPropForFunc + "' >Reset these changes&nbsp;<i class='fas fa-ban'></i></button><button class='listEditRemoveButton' id='ButtonID_" + propForFunc + globalLeftIDforFunc + theObjectPropForFunc + "'>Remove this and cancel&nbsp;<i class='fas fa-times'></i></button></div></li>"));
-                
-                ArrayForMagic[ArrayForMagic.length] = "ButtonID_" + propForFunc + globalLeftIDforFunc + theObjectPropForFunc;
-                ArrayForMagic[ArrayForMagic.length] = "ListItemID_" + globalLeftIDforFunc + propForFunc + theObjectPropForFunc;
-                                    
-                console.log("ArrayForMagic[0]: " + ArrayForMagic[0]);
-                console.log("ArrayForMagic[1]: " + ArrayForMagic[1]);
-                console.log("ArrayForMagic: " + ArrayForMagic);
-                                    
-                //filling the input fields based on ID
-                $("#Dataset_" + globalLeftIDforFunc + propForFunc).val(globalLeftIDforFunc);
-                $("#Attribut_" + propForFunc).val(propForFunc);
-                $("#Value_" + theObjectPropForFunc).val(theObjectPropForFunc);
                 break;
         }
+        
+        ArrayForMagic[ArrayForMagic.length] = "ButtonID_" + propForFunc + globalLeftIDforFunc + theObjectPropForFunc;
+        ArrayForMagic[ArrayForMagic.length] = "ListItemID_" + globalLeftIDforFunc + propForFunc + theObjectPropForFunc;
+                                    
+        console.log("ArrayForMagic[0]: " + ArrayForMagic[0]);
+        console.log("ArrayForMagic[1]: " + ArrayForMagic[1]);
+        console.log("ArrayForMagic: " + ArrayForMagic);
+                                    
+        //filling the input fields based on ID
+        $("#Dataset_" + globalLeftIDforFunc + propForFunc).val(globalLeftIDforFunc);
+        $("#Attribut_" + propForFunc).val(propForFunc);
+        $("#Value_" + theObjectPropForFunc).val(theObjectPropForFunc);
     }
 
     function findObjects2(obj, targetProp) {
@@ -457,59 +472,42 @@ $(document).ready(function() {
         var newValue = $("#Value_" + origKeyValueArray[2]).val();
         console.log("current Value: " + newValue);
         
-        globalNewDATA = globalDATA;
+        if (confirm("Are you sure you want to sumit these changes\nKey: " + origKeyValueArray[0] + "\nValue: " + origKeyValueArray[1])){
+            globalNewDATA = globalDATA;
         
-        findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
-        console.log(globalNewDATA);
-        console.log(JSON.stringify(globalNewDATA));
-        
-        
-        //$(this).closest('tr').find('.display_image').attr(id);
-        
-        
-        // TODO reload json on successful Post/Put
-        
-        const myKeyToPut = Object.keys(globalNewDATA).find(x => globalNewDATA[x].alias === origKeyValueArray[0]);
-        
-        var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;
-        
-        console.log("putURL: " + putURL);
-        console.log("JSON to send: " + globalNewDATA[myKeyToPut]);
-        
-        $.ajax({
-            type: 'PUT',
-            url: putURL,
-            crossDomain: true,
-            data: JSON.stringify(globalNewDATA[myKeyToPut]),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function(responseData, textStatus, jqXHR) {
-                console.log("SUCCESS!; responseData: " + responseData + "; textStatus: " + textStatus + "; jqXHR: " + jqXHR);
-            },
-            error: function (responseData, textStatus, errorThrown) {
-                console.log("POST failed!; responseData: " + responseData + "; textStatus: " + textStatus + "; errorThrown: " + errorThrown);
-            }
-        });
-        
-        /*jQuery.ajax({
-            headers: { 
-                'Accept': 'application/json',
-                'Content-Type': 'application/json' 
-            },
-            'type': 'POST',
-            'url': "http://mindpower.com/index.cfm/contacts",
-            'data': JSON.stringify(globalNewDATA),
-            'dataType': 'json',
-            'success': function () {
-                console.log("SUCCESS!");
-                
-            }
-        });*/
+            findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
+            console.log(globalNewDATA);
+            console.log(JSON.stringify(globalNewDATA));
+
+            // TODO reload json on successful Post/Put
+
+            const myKeyToPut = Object.keys(globalNewDATA).find(x => globalNewDATA[x].alias === origKeyValueArray[0]);
+            var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;
+            console.log("putURL: " + putURL);
+            console.log("JSON to send: " + globalNewDATA[myKeyToPut]);
+
+            $.ajax({
+                type: 'PUT',
+                url: putURL,
+                crossDomain: true,
+                data: JSON.stringify(globalNewDATA[myKeyToPut]),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(responseData, textStatus, jqXHR) {
+                    console.log("SUCCESS!; responseData: " + responseData + "; textStatus: " + textStatus + "; jqXHR: " + jqXHR);
+                },
+                error: function (responseData, textStatus, errorThrown) {
+                    console.log("POST failed!; responseData: " + responseData + "; textStatus: " + textStatus + "; errorThrown: " + errorThrown);
+                }
+            });
+        } else {
+            resetChangesInFields(currentValues);
+            alert("The changes made have been reverted!");
+        }
     });
     
     //Click on remove button of element
     $(document).on('click', ".listEditRemoveButton", function () {
-        //alert("remove: " + this.id);
         console.log("this.id: " + this.id);
         event.preventDefault();
         $("#" + this.id).closest('.listEditItem').remove();
@@ -518,18 +516,9 @@ $(document).ready(function() {
     
     //Click on reset button of element
     $(document).on('click', ".listEditResetButton", function () {
-        //event.preventDefault();
+        event.preventDefault();
         var currentValues = this.id;
-        console.log("this.id: " + this.id);
-        console.log("currentValues: " + currentValues);
-        origKeyValueArray = currentValues.split('+');
-        
-        console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
-        console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
-        console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
-        
-        $("#Attribut_" + origKeyValueArray[1]).val(origKeyValueArray[1]);
-        $("#Value_" + origKeyValueArray[2]).val(origKeyValueArray[2]);
+        resetChangesInFields(currentValues);
     });
     
     // Listeners for input change on the edit fields

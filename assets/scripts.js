@@ -1,10 +1,12 @@
 /* TODO:
- -  popup confirm changes
  -  datepicker for date fields
  -  dropzone for img
- -  loading icon on list until requested json is filled
  -  input fields correct lenght -> eg: sex 1 char, fon only num ect.
- -  add dataset
+ -  add new dataset in tab view
+ -  confirm opon send or reset
+*/
+/* BUG:
+ -  opon selecting on the left, the left list has no hover background white; only text black
 */
 
 var globalLeftID = "";

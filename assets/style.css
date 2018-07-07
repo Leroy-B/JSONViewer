@@ -10,7 +10,6 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
 .flex_container { justify-content: center; display: flex; align-items: stretch; background-color: #f1f1f1; }
 .flex_box_100 { justify-content: center; width: 100%; display: flex;}
 .flex_box_50 { width: 50%; }
-.flex_box_501 { width: 48.5%; }
 .flex_box_25 { width: 25%; }
 
 .box {
@@ -244,12 +243,6 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
   100% {
     transform: translate(19px, 0);
   }
-}
-
-/* Style the tab */
-.tab {
-    overflow: hidden;
-    background-color: #fff;
 }
 
 /* Style the buttons inside the tab */

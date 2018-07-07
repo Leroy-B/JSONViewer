@@ -2,9 +2,9 @@
 body {  }
             
 ul  { list-style-type: none; }            
-h1 {     text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
+h1 { text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
 h3 {  background-color: white; right: 0; margin-right: 10px; margin-bottom: 10px; text-align: center; }
-h4 {     text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
+h4 { text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
 b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
         
 .flex_container { justify-content: center; display: flex; align-items: stretch; background-color: #f1f1f1; }
@@ -272,6 +272,5 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
     border-top: none;
 }

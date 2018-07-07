@@ -392,7 +392,10 @@ $(document).ready(function() {
                 $("#listLeft").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
             }
         })
-            .done(function() { console.log('request succeeded!'); })
+            .done(function() { 
+                console.log('request succeeded!');
+                $("#columnTitel2").css("display", "block");
+            })
             .fail(function(jqXHR, textStatus, errorThrown) { console.log('request failed! ' + textStatus); alert("ERROR: The link you provieded does NOT point to a valid JSON file!") })
             .always(function() { console.log('request ended!');});
         
@@ -468,6 +471,7 @@ $(document).ready(function() {
         findObjects(finalResultsForList, globalRightID, globalRightID, finalResultsForList);
         console.log("============ finalResultsForList: " +finalResultsForList);
         findObjects2(finalResultsForList, globalRightID);
+        $("#columnTitel5").css("display", "block");
     });
     
     $(document).on('click', ".listEditSendButton", function () {
@@ -544,9 +548,11 @@ $(document).ready(function() {
     });
     $(document).on('input', '.listItemBottomAttribut', function () {
         $(".listItemBottomAttribut").css("border", "3px solid #ff8000");
+        $("#columnTitel6").css("display", "block");
     });
     $(document).on('input', '.listItemBottomValue', function () {
         $(".listItemBottomValue").css("border", "3px solid #ff8000");
+        $("#columnTitel6").css("display", "block");
     });
 
 });

@@ -249,12 +249,10 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
 .tab button {
     color: white;
     background-color: #ff8000;
-    float: left;
     border: 3px solid #d3d3d3;
     outline: none;
     cursor: pointer;
     padding: 10px;
-    transition: 0.3s;
     font-size: 18px;
 }
 

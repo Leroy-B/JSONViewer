@@ -1,5 +1,5 @@
-*   {margin: 0px; padding: 0px;}
-body {  }
+*   { margin: 0px; padding: 0px; }
+body { background-color: #f1f1f1; }
             
 ul  { list-style-type: none; }            
 h1 { text-align: center; background-color: dodgerblue; color: white; padding: 10px; }
@@ -28,7 +28,7 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
             /*.flex_container > div { background-color: white; color: black; width: 100px; margin: 10px; text-align: left; line-height: 20px;
                                     font-size: 18px; flex-grow: 5; overflow-y: scroll; height:300px; }*/
 
-.bottomMenu { color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;font-size: 18px; flex-grow: 5; height:auto; }
+.bottomMenu { color: black; width: 100%; margin: 10px; text-align: left; line-height: 20px;font-size: 18px; flex-grow: 5; height:auto; width: initial; }
 
 .scrollViewLeft { 
     background-color: white;
@@ -186,63 +186,31 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
     background-color: #ff9933;
 }
 
-.lds-ellipsis {
-    display: inline-block;
-    position: relative;
-    width: 64px;
-    height: 64px;
-    margin-top: 35%;
-    margin-left: 40%;
+.loader {
+    border: 16px solid #fff;
+    border-radius: 50%;
+    border-top: 16px solid dodgerblue;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+    background-color: #f3f3f3;
+    margin: 0px auto;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loading{
     display: none;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 27px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #000;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 6px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 6px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 26px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 45px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(19px, 0);
-  }
 }
 
 /* Style the buttons inside the tab */

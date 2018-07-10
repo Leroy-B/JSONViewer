@@ -42,7 +42,7 @@
             </div>
             <div class="flex_box_50" id="columnTitel2" style="display: none;">
                 <span class="columnTitel"><b>2.</b> Select an option</span>
-                <div class="btnGroup">
+                <div class="btnGroup" style="padding: 10px;">
                     <button class="tablinks" onclick="openTab(event, 'tabAdd')">Add to the requested JSON&nbsp;<i class="far fa-plus-square"></i></button>
                     <button class="tablinks" onclick="openTab(event, 'tabEdit')">Edit the requested JSON&nbsp;<i class="fas fa-edit"></i></button>
                 </div>
@@ -60,7 +60,6 @@
                         <span class="columnTitel"><b>3.</b> Select dataset</span>
                         <div class="scrollViewLeft">
                             <ul id="listLeft">
-                                <div class="lds-ellipsis" id="left"><div></div><div></div><div></div><div></div></div>
                             </ul>
                         </div>
                     </div>
@@ -112,8 +111,7 @@
             <div class="flex_box_25">
             </div>
         </div>
-        
-        <h4>by using this website you agree to give me a high five opon request</h4>
+        <div id="loading" class="loader"></div>
 
     </body>
 </html>

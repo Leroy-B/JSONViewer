@@ -170,6 +170,25 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
     height: 40px;width: 67%;border: 3px solid #d3d3d3;;font-size: 25px;box-sizing: border-box;padding-left: 5px;
 }
 
+.addInputField {
+    height: 46px;
+    width: 95.5%;
+    border: 3px solid lightslategrey;
+    box-sizing: content-box;
+}
+
+.addInputTitel {
+    height: 46px;
+    width: 100%;
+    margin: 0px 0px 10px 0px;
+    border: 3px solid lightslategrey;
+    font-size: 25px;
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+}
+
+
 /* Clear floats (clearfix hack) */
 .btn-group:after {
     content: "";
@@ -232,6 +251,20 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
 /* Create an active/current tablink class */
 .tab button.active {
     background-color: #ccc;
+    color: dodgerblue;
+    border: 3px solid dodgerblue;
+}
+
+.tab button.active:hover {
+    background-color: #b9b9b9;
+    color: dodgerblue;
+    border: 3px solid dodgerblue;
+}
+
+.listButtons:hover {
+    background-color: #b9b9b9;
+    color: dodgerblue;
+    border: 3px solid dodgerblue;
 }
 
 /* Style the tab content */

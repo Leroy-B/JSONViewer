@@ -174,7 +174,8 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
     height: 46px;
     width: 95.5%;
     border: 3px solid lightslategrey;
-    box-sizing: content-box;
+    box-sizing: border-box;
+    font-size: 25px;
 }
 
 .addInputTitel {

@@ -26,7 +26,7 @@
             </div>
             <div class="flex_box_50">
                <div class="topMenu">
-                   <span style="padding-left: 3%;" class="columnTitel"><b>1.</b> Request a JSON</span>
+                   <span style="padding-left: 3%;margin-left: 40%;" class="columnTitel"><b>1.</b> Request a JSON</span>
                    <div class="btnGroup" style="padding: 10px;">
                        <button id="requestJSONButton">Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
                        <input id="requestJSONText" placeholder="Link to a JSON" class="inputField" type="url" name="requestJSONURL">
@@ -41,34 +41,49 @@
             <div class="flex_box_25">
             </div>
             <div class="flex_box_50" id="columnTitel2" style="display: none;">
-                <span class="columnTitel"><b>2.</b> Select an option</span>
+                <span class="columnTitel"  style="margin-left: 40%;"><b>2.</b> Select an option</span>
                 <div class="btnGroup tab" style="padding: 10px;">
                     <button class="tablinks" onclick="openTab(event, 'tabAdd')">Add to the requested JSON&nbsp;<i class="far fa-plus-square"></i></button>
                     <button class="tablinks" onclick="openTab(event, 'tabEdit')">Edit the requested JSON&nbsp;<i class="fas fa-edit"></i></button>
                 </div>
                 
-                <span class="columnTitel" style="margin-left: 275px;"><b>3.</b> Add a new dataset</span>
-                <div class="flex_box_100 btnGroup">
-                    
-                    <div class="flex_box_50" style="padding: 10px;">
-                        <div class="flex_box_100">
-                            <span class="addInputTitel">alias:</span>
-                        </div>
-                    </div>
-                    <div class="flex_box_50" style="padding: 10px;">
-                        <input id="" placeholder="" class="addInputField" type="text" name="requestJSONURL">
-                    </div>
-                    
-                </div>
                 
-                <div class="flex_box_100 btnGroup" style="padding: 10px;">
-                    <button class="tablinks" onclick="openTab(event, 'tabEdit')">Add additional fields&nbsp;<i class="far fa-plus-square"></i></button>
+                <div class="flex_box_100 btnGroup">
                 </div>
                 
             </div>
             <div class="flex_box_25">
             </div>
         </div>
+        
+        
+        <div class="flex_container">
+            <div class="flex_container flex_box_100 tabcontent" id="tabAdd" style="display: none;">
+                <span class="columnTitel" style="margin-left: 45%;"><b>3.</b> Add a new dataset</span>
+                <div class="flex_container flex_box_100">
+                    <div class="flex_box_25" style="padding: 10px;">
+                    </div>
+                    
+                    <div class="btnGroup flex_box_50" style="padding: 10px;">
+                        <div class="flex_box_100">
+                            <input id="addInputFieldAlias" placeholder="alias:" class="addInputField" type="text" name="alias" disabled>
+                            <input id="" placeholder="" class="addInputField" type="text" name="requestJSONURL" required>
+                        </div>
+                    </div>
+                    
+                    <div class="flex_box_25" style="padding: 10px;">
+                    </div>
+                </div>
+                
+                <div class="btnGroup flex_box_100" style="padding: 10px;width: 50%;margin-left: 25%;">
+                    <div class="flex_box_100">
+                        <button class="tablinks" onclick="">Add additional fields&nbsp;<i class="far fa-plus-square"></i></button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
         
         <div class="flex_container">
             <div class="flex_container flex_box_100 tabcontent" id="tabEdit">
@@ -110,27 +125,24 @@
                     <div class="flex_box_25">
                     </div>
                 </div>
-            </div>
-            <div class="flex_container flex_box_100 tabcontent" id="tabAdd" style="display: none;">
+                <div class="flex_container">
+                    <div class="flex_box_25">
+                    </div>
+                    <div class="flex_box_50" id="columnTitel6" style="display: none;">
+                        <div class="topMenu">
+                            <span style="padding-left: 50%;" class="columnTitel"><b>6.</b> Send changes</span>
+                            <div class="btnGroup">
+                                <button>Send all changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                                <button>Reset all changes&nbsp;<i class="fas fa-ban"></i></button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="flex_box_25">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="flex_container">
-            <div class="flex_box_25">
-            </div>
-            <div class="flex_box_50" id="columnTitel6" style="display: none;">
-               <div class="topMenu">
-                   <span style="padding-left: 75%;" class="columnTitel"><b>6.</b> Send changes</span>
-                   <div class="btnGroup">
-                       <button>Send all changes&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                       <button>Reset all changes&nbsp;<i class="fas fa-ban"></i></button>
-                   </div>
-                </div> 
-            </div>
-            <div class="flex_box_25">
-            </div>
-        </div>
         <div id="loading" class="loader"></div>
-
     </body>
 </html>

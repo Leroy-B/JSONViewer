@@ -591,6 +591,21 @@ $(document).ready(function() {
         resetChangesInFields(currentValues);
     });
     
+    //Click on add fields button 
+    $(document).on('click', ".addMoreFieldsButton", function () {
+        
+        $('#listAddInputField ul').append(
+            $('<li>').append(
+                $('<div>').attr('class','flex_box_100').append(
+                    $('<input>').attr( { id:"", class:"addInputField", placeholder:"", type:"text", required:"true" } )
+                    $('<input>').attr( { id:"", class:"addInputField", placeholder:"", type:"text", required:"true" } )
+        )));
+        
+        
+        
+        /*$(".listAddInputField ul").append($("<li id=''><div class='flex_box_100'><input id='addInputField' placeholder='' class='addInputField' type='text' name='' required><input id='' placeholder='' class='addInputField' type='text' name='' required></div></li>"));*/
+    });
+    
     //Img upload
     $("#imgInp").change(function(){
         readURL(this);

@@ -1,12 +1,6 @@
 /* TODO:
- -  datepicker for date fields
- -  dropzone for img
- -  input fields correct lenght -> eg: sex 1 char, fon only num ect.
  -  add new dataset in tab view
- -  confirm opon send or reset
-*/
-/* BUG:
- -  opon selecting on the left, the left list has no hover background white; only text black
+ -  add new attribut from listRight
 */
 
 var globalLeftID = "";
@@ -21,21 +15,25 @@ var ArrayForMagic = [];
 var origKeyValueArray = [];
 
 var searchInputText;
-
+var counterForSelect = 0;
 
 
 function resetChangesInFields(currentValues){
             
     console.log("this.id: " + this.id);
     console.log("currentValues: " + currentValues);
+    // split the string from para into array
     origKeyValueArray = currentValues.split('+');
         
     console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
     console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
     console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
-        
+    
+    // value and css border to default
     $("#Attribut_" + origKeyValueArray[1]).val(origKeyValueArray[1]);
+    $("#Attribut_" + origKeyValueArray[1]).css("border", "3px solid lightslategrey");
     $("#Value_" + origKeyValueArray[2]).val(origKeyValueArray[2]);
+    $("#Value_" + origKeyValueArray[2]).css("border", "3px solid lightslategrey");
 }
 
 function openTab(evt, tabName) {
@@ -448,7 +446,7 @@ $(document).ready(function() {
                 $("#columnTitel2").css("display", "block");
                 $("#loading").css("display", "none");
             })
-            .fail(function(jqXHR, textStatus, errorThrown) { console.log('request failed! ' + textStatus); alert("ERROR: The link you provieded does NOT point to a valid JSON file!") })
+            .fail(function(jqXHR, textStatus, errorThrown) { console.log('request failed! ' + textStatus); alert("ERROR: The link you provieded does NOT point to a valid JSON file!"); $("#loading").css("display", "none"); })
             .always(function() { console.log('request ended!');});
         
     });
@@ -548,6 +546,56 @@ $(document).ready(function() {
             console.log(globalNewDATA);
             console.log(JSON.stringify(globalNewDATA));
 
+            const myKeyToPut = Object.keys(globalNewDATA).find(x => globalNewDATA[x].alias === origKeyValueArray[0]);
+            var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;
+            console.log("putURL: " + putURL);
+            console.log("JSON to send: " + globalNewDATA[myKeyToPut]);
+
+            $.ajax({
+                type: 'PUT',
+                url: putURL,
+                crossDomain: true,
+                data: JSON.stringify(globalNewDATA[myKeyToPut]),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function(responseData, textStatus, jqXHR) {
+                    console.log("SUCCESS!; responseData: " + responseData + "; textStatus: " + textStatus + "; jqXHR: " + jqXHR);
+                    $(".listEditRemoveButton").click();
+                    $("#requestJSONButton").click();
+                },
+                error: function (responseData, textStatus, errorThrown) {
+                    console.log("POST failed!; responseData: " + responseData + "; textStatus: " + textStatus + "; errorThrown: " + errorThrown);
+                }
+            });
+        } else {
+            resetChangesInFields(currentValues);
+            alert("The changes made have been reverted!");
+        }
+    });
+    
+    
+    $(document).on('click', ".sendNewDatasetButton", function () {
+        event.preventDefault();
+        /*var currentValues = this.id;
+        origKeyValueArray = currentValues.split('+');
+        
+        console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
+        console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
+        console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
+        
+        console.log("Key: " + origKeyValueArray[0]);
+        console.log("Value: " + origKeyValueArray[1]);
+        
+        var newValue = $("#Value_" + origKeyValueArray[2]).val();
+        console.log("current Value: " + newValue);
+        
+        if (confirm("Are you sure you want to sumit these changes\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
+            globalNewDATA = globalDATA;
+        
+            findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
+            console.log(globalNewDATA);
+            console.log(JSON.stringify(globalNewDATA));
+
             // TODO reload json on successful Post/Put
 
             const myKeyToPut = Object.keys(globalNewDATA).find(x => globalNewDATA[x].alias === origKeyValueArray[0]);
@@ -573,37 +621,110 @@ $(document).ready(function() {
         } else {
             resetChangesInFields(currentValues);
             alert("The changes made have been reverted!");
-        }
+        }*/
     });
+    
     
     //Click on remove button of element
     $(document).on('click', ".listEditRemoveButton", function () {
         console.log("this.id: " + this.id);
         event.preventDefault();
+        // remove the closest elem with class; hide title
         $("#" + this.id).closest('.listEditItem').remove();
+        if( $('#listEdit ul li').length < 1 ){
+            $("#columnTitel5").css("display", "none");
+            $("#columnTitel6").css("display", "none");
+        }
+    });
+    
+    //Click on remove button of element
+    $(document).on('click', ".close-icon", function () {
+        $(this).parent().remove();
     });
     
     
     //Click on reset button of element
     $(document).on('click', ".listEditResetButton", function () {
         event.preventDefault();
-        var currentValues = this.id;
-        resetChangesInFields(currentValues);
+        // call to func with current id as para; will decode para and set the value in the input fields to orig; css border to default
+        resetChangesInFields(this.id);
+        console.log("listEditResetButton this.id: " + this.id);
+        console.log("origKeyValueArray[2] this.id: " + origKeyValueArray[2]);
+        // check if any <li> still exist; if not hide title
+        if( $('#listEdit ul li').length < 1 ){
+            $("#columnTitel5").css("display", "none");
+            $("#columnTitel6").css("display", "none");
+        }
     });
     
     //Click on add fields button 
     $(document).on('click', ".addMoreFieldsButton", function () {
+        // increas the counter to make id unique
+        counterForSelect++;
+        // new <li> with input, dropdown and remove button
+        $('#listAddInputField ul').append(
+            $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
+        );
+        
+        /*
+        
+        $('<li style="display: flex;margin: 10px;">').append('<div class="spaceForRadioButton"><input type="radio" checked>is text</div><div class="spaceForRadioButton"><input type="radio">is video</div><div class="spaceForRadioButton"><input type="radio">is list</div><div class="spaceForRadioButton"><input type="radio">is pic</div><input class="addInputField1" type=text placeholder="test" required><input class="addInputField1" type=text placeholder="test" required>')
+        
+        <input class="addInputField1" type=text placeholder="test" required><input class="addInputField1" type=text placeholder="test" required>
         
         $('#listAddInputField ul').append(
             $('<li>').append(
                 $('<div>').attr('class','flex_box_100').append(
-                    $('<input>').attr( { id:"", class:"addInputField", placeholder:"", type:"text", required:"true" } )
-                    $('<input>').attr( { id:"", class:"addInputField", placeholder:"", type:"text", required:"true" } )
+                    $('<input>').attr( { id:"", class:"addInputField", placeholder:"", type:"text" } ).prop('required', true)
         )));
         
+        $('#listAddInputField ul').append(
+            $('<li>').append(
+                $('<div>').attr('class','flex_box_100').append(
+                    $('<input>').attr( { id:"", class:"addInputField", placeholder:"", type:"text" } ).prop('required', true)
+        )));*/
         
+    });
+    
+    
+    // Listener for change in the dropdown for adding new datasets
+    $(document).on("change", ".counterForSelect", function () {
+        console.log("counterForSelect_: " + counterForSelect);
+        // get the value of the currently selected option from the dropdown and assign it to a var
+        var ValueSelect = $("#" + this.id).val();
+        $( "#addInputFieldAttribut" ).remove();
+        switch(ValueSelect){
+            case 'isList':
+                // removes the parent <li> and appends a new <li> to <ul>
+                $(this).parent().remove();
+                $('#listAddInputField ul').append(
+                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
+                );
+                break;
+            case 'isVideo':
+                $(this).parent().remove();
+                $('#listAddInputField ul').append(
+                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
+                );
+                break;
+            case 'isPic':
+                $(this).parent().remove();
+                $('#listAddInputField ul').append(
+                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic" selected="selected">is pic</option><option value="isList">is list</option></select><input style="padding: 14px;" type="file" name="pic" accept="image/*"><a href="#" class="close-icon"></a>')
+                );
+                //$("#" + this.id).append('<input type="file" name="pic" accept="image/*">');
+                //alert("isPic");
+                break;
+            case 'isText':
+                $(this).parent().remove();
+                $('#listAddInputField ul').append(
+                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
+                );
+                break;
+            default:
+                alert("ERROR");
+        }
         
-        /*$(".listAddInputField ul").append($("<li id=''><div class='flex_box_100'><input id='addInputField' placeholder='' class='addInputField' type='text' name='' required><input id='' placeholder='' class='addInputField' type='text' name='' required></div></li>"));*/
     });
     
     //Img upload
@@ -615,16 +736,17 @@ $(document).ready(function() {
     $(document).on('click', ".tablink", function () {
     });
     
-    // Listeners for input change on the edit fields
+    
+    // Listeners for input change on the edit fields also show the title 6
     $(document).on('input', '.listItemBottomDataset', function () {
         $(".listItemBottomDataset").css("border", "3px solid #ff8000");
     });
     $(document).on('input', '.listItemBottomAttribut', function () {
-        $(".listItemBottomAttribut").css("border", "3px solid #ff8000");
+        $("#" + this.id).css("border", "3px solid #ff8000");
         $("#columnTitel6").css("display", "block");
     });
     $(document).on('input', '.listItemBottomValue', function () {
-        $(".listItemBottomValue").css("border", "3px solid #ff8000");
+        $("#" + this.id).css("border", "3px solid #ff8000");
         $("#columnTitel6").css("display", "block");
     });
 

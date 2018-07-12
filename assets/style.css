@@ -57,15 +57,15 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
 .searchboxInList { background-color: #969696; padding: 0px 0px 0px 0px; color: white; display: block; height: 40px; width: 94%; margin: 10px 10px 0px 10px; }
             
             .searchboxInList button {
-                background-color: #ff8000; /* Green background */
-                color: white; /* White text */
-                cursor: pointer; /* Pointer/hand icon */
-                float: right; /* Float the buttons side by side */
-                width: 33%;
-                border: 3px solid #d3d3d3;
-                line-height: 20px;
-                font-size: 18px;
-                height: 40px;
+                    background-color: #ff8000;
+    color: white;
+    cursor: pointer;
+    float: right;
+    width: 27%;
+    border: 3px solid #d3d3d3;
+    line-height: 20px;
+    font-size: 18px;
+    height: 40px;
             }
 
             .scrollViewLeft ul li {
@@ -167,12 +167,31 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
 }
 
 .inputField1 {
-    height: 40px;width: 67%;border: 3px solid #d3d3d3;;font-size: 25px;box-sizing: border-box;padding-left: 5px;
+    height: 40px;width: 46%;border: 3px solid #d3d3d3;;font-size: 25px;box-sizing: border-box;padding-left: 5px;
 }
+
+input[type="radio"] {
+  margin-right: 6px;
+}
+
+.spaceForRadioButton{
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
 
 .addInputField {
     height: 46px;
     width: 95.5%;
+    border: 3px solid lightslategrey;
+    box-sizing: border-box;
+    font-size: 25px;
+    text-align: center
+}
+
+.addInputField1 {
+    height: 46px;
+    width: 40%;
     border: 3px solid lightslategrey;
     box-sizing: border-box;
     font-size: 25px;
@@ -230,8 +249,24 @@ b  { font-weight:bolder; color: dodgerblue; font-size: 30px }
   100% { transform: rotate(360deg); }
 }
 
-#loading{
+#loading {
     display: none;
+}
+.close-icon {
+  display:block;
+  box-sizing:border-box;
+  width:20px;
+  height:20px;
+  border-width:3px;
+  border-style: solid;
+  border-color:red;
+  border-radius:100%;
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+  background-color:red;
+  box-shadow:0px 0px 5px 2px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+    margin-left: 1%;
+    margin-top: 1.8%;
 }
 
 /* Style the buttons inside the tab */

@@ -1,6 +1,7 @@
 /* TODO:
  -  add new dataset in tab view
  -  add new attribut from listRight
+ -  prevent add new dataset if name for attribut is "alias"
 */
 
 var globalLeftID = "";
@@ -16,6 +17,8 @@ var origKeyValueArray = [];
 
 var searchInputText;
 var counterForSelect = 0;
+
+var list = {};
 
 
 function resetChangesInFields(currentValues){
@@ -537,7 +540,7 @@ $(document).ready(function() {
         var newValue = $("#Value_" + origKeyValueArray[2]).val();
         console.log("current Value: " + newValue);
         
-        if (confirm("Are you sure you want to sumit these changes\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
+        if (confirm("Are you sure you want to sumit these changes ?\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
             globalNewDATA = globalDATA;
         
             findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
@@ -571,28 +574,37 @@ $(document).ready(function() {
         }
     });
     
-    //Click on reset button of element
+    //Send new Dataset
     $(document).on('click', ".sendNewDatasetButton", function () {
-        var newDataToPOST = {};
-        $(".formForNewDataset").serializeArray().map(function(x){newDataToPOST[x.name] = x.value;});
-        console.log(newDataToPOST);
-        /*if (confirm("Are you sure you want to sumit these changes\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
-            globalNewDATA = globalDATA;
         
-            findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
-            console.log(globalNewDATA);
-            console.log(JSON.stringify(globalNewDATA));
+        $(".formForNewDataset").find("input").each(function() {
+            if (!$(this).hasClass("ohnono")) {
+                var lastChar = this.id.substr(this.id.length - 1);
+                var myString = "#" + this.id + lastChar;
 
-            const myKeyToPut = Object.keys(globalNewDATA).find(x => globalNewDATA[x].alias === origKeyValueArray[0]);
-            var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;
+                var field = $("#" + this.id).attr('name');
+                if($("#" + this.id).attr('name') == "alias"){
+                    var value = $("#addInputFieldAliasText").val();
+                } else {
+                    var value = $(myString).attr('name');
+                }
+                console.log(field);
+                console.log(value);
+                list[field] = value;
+            }
+        });
+        console.log(list);
+        if (confirm("Are you sure")){
+
+            var putURL = "http://mindpower.com/index.cfm/contacts";
             console.log("putURL: " + putURL);
-            console.log("JSON to send: " + globalNewDATA[myKeyToPut]);
+            //console.log("JSON to send: " + globalNewDATA[myKeyToPut]);
 
             $.ajax({
-                type: 'PUT',
+                type: 'POST',
                 url: putURL,
                 crossDomain: true,
-                data: JSON.stringify(globalNewDATA[myKeyToPut]),
+                data: JSON.stringify(list),
                 dataType: 'json',
                 contentType: 'application/json',
                 success: function(responseData, textStatus, jqXHR) {
@@ -604,9 +616,9 @@ $(document).ready(function() {
                 }
             });
         } else {
-            resetChangesInFields(currentValues);
+            // TODO: reset all fields
             alert("The changes made have been reverted!");
-        }*/
+        }
     });
     
     
@@ -705,19 +717,10 @@ $(document).ready(function() {
     
     $(document).on('input', '.addInputField1', function () {
         var n = $("#ULlistAddInputFieldAlias").length;
-        if (!$(this).hasClass("ohnono")) {
-            for(var i= 0; i<n; i++){
-                $("#" + this.id).attr('name', $("#" + this.id).val());
-                var lastChar = this.id.substr(this.id.length - 1);
-                console.log("#" + this.id + lastChar);
-                $("#" + this.id).attr('value', $("#" + this.id + lastChar).val());
-                /*if(){
-                
-                }*/
-            }
+        for(var i= 0; i<n; i++){
+            $("#" + this.id).attr('name', $("#" + this.id).val());
         }
     });
-    
     
     //Img upload
     $("#imgInp").change(function(){

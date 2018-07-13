@@ -65,8 +65,6 @@ function readURL(input) {
 
 $(document).ready(function() {
     
-    
-    
     function isArray(what) {
         return Object.prototype.toString.call(what) === '[object Array]';
     }
@@ -573,30 +571,17 @@ $(document).ready(function() {
         }
     });
     
-    
+    //Click on reset button of element
     $(document).on('click', ".sendNewDatasetButton", function () {
-        event.preventDefault();
-        /*var currentValues = this.id;
-        origKeyValueArray = currentValues.split('+');
-        
-        console.log("origKeyValueArray[0]: " + origKeyValueArray[0]);
-        console.log("origKeyValueArray[1]: " + origKeyValueArray[1]);
-        console.log("origKeyValueArray[2]: " + origKeyValueArray[2]);
-        
-        console.log("Key: " + origKeyValueArray[0]);
-        console.log("Value: " + origKeyValueArray[1]);
-        
-        var newValue = $("#Value_" + origKeyValueArray[2]).val();
-        console.log("current Value: " + newValue);
-        
-        if (confirm("Are you sure you want to sumit these changes\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
+        var newDataToPOST = {};
+        $(".formForNewDataset").serializeArray().map(function(x){newDataToPOST[x.name] = x.value;});
+        console.log(newDataToPOST);
+        /*if (confirm("Are you sure you want to sumit these changes\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
             globalNewDATA = globalDATA;
         
             findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
             console.log(globalNewDATA);
             console.log(JSON.stringify(globalNewDATA));
-
-            // TODO reload json on successful Post/Put
 
             const myKeyToPut = Object.keys(globalNewDATA).find(x => globalNewDATA[x].alias === origKeyValueArray[0]);
             var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;
@@ -663,7 +648,7 @@ $(document).ready(function() {
         counterForSelect++;
         // new <li> with input, dropdown and remove button
         $('#listAddInputField ul').append(
-            $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
+            $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName_'+ counterForSelect + counterForSelect +'" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1 ohnono" id="addInputFieldName_'+ counterForSelect + counterForSelect + counterForSelect +'" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
         );
         
         /*
@@ -692,40 +677,47 @@ $(document).ready(function() {
         console.log("counterForSelect_: " + counterForSelect);
         // get the value of the currently selected option from the dropdown and assign it to a var
         var ValueSelect = $("#" + this.id).val();
-        $( "#addInputFieldAttribut" ).remove();
+        var currentID = "#" + this.id;
+        //$( "#addInputFieldAttribut" ).remove();
         switch(ValueSelect){
             case 'isList':
-                // removes the parent <li> and appends a new <li> to <ul>
-                $(this).parent().remove();
-                $('#listAddInputField ul').append(
-                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
-                );
+                $(this).next().remove();
+                $(currentID).after('<input id="IDcounterForSelect_'+ counterForSelect + ValueSelect +'" class="addInputField1 ohnono" type=text placeholder="value for attribut" required>');
+                $(currentID).after('<input id="IDcounterForSelect_'+ counterForSelect + ValueSelect +'" class="addInputField1 ohnono" type=text placeholder="value for attribut" required>');
                 break;
             case 'isVideo':
-                $(this).parent().remove();
-                $('#listAddInputField ul').append(
-                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
-                );
+                $(this).next().remove();
+                $(currentID).after('<input id="IDcounterForSelect_'+ counterForSelect + ValueSelect +'" class="addInputField1 ohnono" type=text placeholder="value for attribut" required>');
                 break;
             case 'isPic':
-                $(this).parent().remove();
-                $('#listAddInputField ul').append(
-                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic" selected="selected">is pic</option><option value="isList">is list</option></select><input style="padding: 14px;" type="file" name="pic" accept="image/*"><a href="#" class="close-icon"></a>')
-                );
-                //$("#" + this.id).append('<input type="file" name="pic" accept="image/*">');
-                //alert("isPic");
+                $(this).next().remove();
+                $(currentID).after('<input id="IDcounterForSelect_'+ counterForSelect + ValueSelect +'" style="padding: 14px;" type="file" name="pic" accept="image/*">');
                 break;
             case 'isText':
-                $(this).parent().remove();
-                $('#listAddInputField ul').append(
-                    $('<li class="listInputFieldClass" style="display: flex;margin: 10px 0px;">').append('<input class="addInputField1" id="addInputFieldName" type=text placeholder="name for attribut" required><select class="counterForSelect" id="counterForSelect_'+ counterForSelect +'" style="font-size: 25px;margin: 0px 10px;"><option value="isText">is text</option><option value="isVideo">is video</option><option value="isPic">is pic</option><option value="isList">is list</option></select><input class="addInputField1" id="addInputFieldAttribut" type=text placeholder="value for attribut" required><a href="#" class="close-icon"></a>')
-                );
+                $(this).next().remove();
+                $(currentID).after('<input id="IDcounterForSelect_'+ counterForSelect + ValueSelect +'" class="addInputField1 ohnono" type=text placeholder="value for attribut" required>');
                 break;
             default:
                 alert("ERROR");
         }
         
     });
+    
+    $(document).on('input', '.addInputField1', function () {
+        var n = $("#ULlistAddInputFieldAlias").length;
+        if (!$(this).hasClass("ohnono")) {
+            for(var i= 0; i<n; i++){
+                $("#" + this.id).attr('name', $("#" + this.id).val());
+                var lastChar = this.id.substr(this.id.length - 1);
+                console.log("#" + this.id + lastChar);
+                $("#" + this.id).attr('value', $("#" + this.id + lastChar).val());
+                /*if(){
+                
+                }*/
+            }
+        }
+    });
+    
     
     //Img upload
     $("#imgInp").change(function(){
@@ -735,7 +727,6 @@ $(document).ready(function() {
     //Click on reset button of element
     $(document).on('click', ".tablink", function () {
     });
-    
     
     // Listeners for input change on the edit fields also show the title 6
     $(document).on('input', '.listItemBottomDataset', function () {

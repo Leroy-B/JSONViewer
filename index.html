@@ -29,7 +29,7 @@
                    <span style="padding-left: 3%;margin-left: 40%;" class="columnTitel"><b>1.</b> Request a JSON</span>
                    <div class="btnGroup" style="padding: 10px;">
                        <button id="requestJSONButton">Request JSON&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                       <input id="requestJSONText" placeholder="Link to a JSON" class="inputField" type="url" name="requestJSONURL">
+                       <input id="requestJSONText" placeholder="Link to a JSON" class="inputField" type="url" name="requestJSONURL" autofocus>
                    </div>
                 </div> 
             </div>
@@ -60,32 +60,34 @@
         <div class="flex_container">
             <div class="flex_container flex_box_100 tabcontent" id="tabAdd" style="display: none;">
                 <span class="columnTitel" style="margin-left: 45%;"><b>3.</b> Add a new dataset</span>
-                <div class="flex_container flex_box_100">
-                    <div class="flex_box_25" style="padding: 10px;">
-                    </div>
-                    
-                    <div class="btnGroup flex_box_50" id="listAddInputField" style="padding: 10px;">
-                        <ul>
-                            <li id="listAddInputFieldAlias">
-                                <div class="flex_box_100">
-                                    <input id="addInputFieldAlias" placeholder="alias:" class="addInputField" type="text" name="alias" disabled>
-                                    <input id="" placeholder="" class="addInputField" type="text" name="requestJSONURL" required>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="flex_box_25" style="padding: 10px;">
-                    </div>
-                </div>
                 
-                <div class="flex_box_100">
-                    <div class="btnGroup" style="padding: 10px;width: 49.5%;">
-                        <button class="sendNewDatasetButton">Send additions&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                        <button class="addMoreFieldsButton">Add additional fields&nbsp;<i class="far fa-plus-square"></i></button>
+                    <div class="flex_container flex_box_100">
+                        <div class="flex_box_25" style="padding: 10px;">
+                        </div>
+
+                        <div class="btnGroup flex_box_50" id="listAddInputField" style="padding: 10px;">
+                            <form class="formForNewDataset">
+                                <ul id="ULlistAddInputFieldAlias">
+                                    <li id="listAddInputFieldAlias">
+                                        <div class="flex_box_100">
+                                            <input id="addInputFieldAlias" placeholder="alias:" class="addInputField" type="text" disabled>
+                                            <input id="addInputFieldAliasText" placeholder="" class="addInputField" type="text" name="alias" required autofocus>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                        <div class="flex_box_25" style="padding: 10px;">
+                        </div>
                     </div>
-                </div>
-                
+
+                    <div class="flex_box_100">
+                        <div class="btnGroup" style="padding: 10px;width: 49.5%;">
+                            <button class="sendNewDatasetButton" type="submit">Send additions&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                            <button class="addMoreFieldsButton">Add additional fields&nbsp;<i class="far fa-plus-square"></i></button>
+                        </div>
+                    </div>
             </div>
         </div>
         

@@ -610,6 +610,9 @@ $(document).ready(function() {
                 success: function(responseData, textStatus, jqXHR) {
                     console.log("SUCCESS!; responseData: " + responseData + "; textStatus: " + textStatus + "; jqXHR: " + jqXHR);
                     //TODO: remove all input elements and reload lists
+                    alert("Successfully send the data!");
+                    location.reload();
+                    
                 },
                 error: function (responseData, textStatus, errorThrown) {
                     console.log("POST failed!; responseData: " + responseData + "; textStatus: " + textStatus + "; errorThrown: " + errorThrown);
@@ -682,7 +685,6 @@ $(document).ready(function() {
         )));*/
         
     });
-    
     
     // Listener for change in the dropdown for adding new datasets
     $(document).on("change", ".counterForSelect", function () {

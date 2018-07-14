@@ -540,7 +540,7 @@ $(document).ready(function() {
         var newValue = $("#Value_" + origKeyValueArray[2]).val();
         console.log("current Value: " + newValue);
         
-        if (confirm("Are you sure you want to sumit these changes ?\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
+        if (confirm("Are you sure you want to sumit these changes?\nKey: " + origKeyValueArray[0] + "\nAttribute: " + origKeyValueArray[1] + "\nValue: " + newValue)){
             globalNewDATA = globalDATA;
         
             findObjectsAndChange(globalNewDATA, origKeyValueArray[0], origKeyValueArray[1], origKeyValueArray[2], newValue);
@@ -561,8 +561,14 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 success: function(responseData, textStatus, jqXHR) {
                     console.log("SUCCESS!; responseData: " + responseData + "; textStatus: " + textStatus + "; jqXHR: " + jqXHR);
-                    $(".listEditRemoveButton").click();
+                    var n = $(".listEditRemoveButton").length;
+                    for(var i= 0; i<n; i++){
+                        $(".listEditRemoveButton").click();
+                    }
+                    $('#listRight').empty();
                     $("#requestJSONButton").click();
+                    $("#" + origKeyValueArray[0]).click();
+                    //$("#requestJSONButton").click();
                 },
                 error: function (responseData, textStatus, errorThrown) {
                     console.log("POST failed!; responseData: " + responseData + "; textStatus: " + textStatus + "; errorThrown: " + errorThrown);

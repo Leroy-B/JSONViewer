@@ -65,6 +65,22 @@ function readURL(input) {
     }
 }
 
+function searchFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("searchInputText");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("listRight");
+    li = ul.getElementsByTagName("listItemRight");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
 
 $(document).ready(function() {
 
@@ -259,45 +275,11 @@ $(document).ready(function() {
     });
     
     // SEARCH FUNCTION
-    /*$(document).on('click', '#searchInputButton', function () {
-        
-        searchInputText = $("#searchInputText").val();
-        var searchInputTextArray = searchInputText.split(";");
-        
-        for(var i = 0; i<searchInputTextArray.length; i++){
-            var temp = searchInputTextArray[i] + "&";
-            JSONpath += temp;
-        }
-        
-        $.getJSON(JSONpath, function(data) {
-                globalDATA = data;
-                $('#listLeft').empty();
-                $('#listRight').empty();
-                for (i in globalDATA) {
-                    $("#listLeft").append($("<li class='listItemLeft leftList' id='" + globalDATA[i].alias + "'>").text(i + ": " + globalDATA[i].alias));
-                }
-            })
-                .done(function() { console.log('search succeeded!'); })
-                .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
-                .always(function() { console.log('search ended!');});
-        
-    });*/
-    $(document).on('click', '#searchInputButton', function () {
-
-        searchInputText = $("#searchInputText").val();
-        const myKeyToPut = Object.keys(globalDATA).find(x => globalDATA[x].alias === globalLeftID);
-        var putURL = "http://mindpower.com/index.cfm/contacts/" + myKeyToPut;;
-
-        $.getJSON(putURL, function(data) {
-                /*$('#listLeft').empty();*/
-            $('#listRight').empty();
-            findObjects(data, searchInputText, "test", finalResults);
-            console.log(finalResults);
-            findObjectsFromListLeft(finalResults);
-        })
-            .done(function() { console.log('search succeeded!'); })
-            .fail(function(jqXHR, textStatus, errorThrown) { console.log('search failed! ' + textStatus); alert("ERROR: search!") })
-            .always(function() { console.log('search ended!');});
+    $("#searchInputText").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#listRight li").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
     });
     
     $(document).on('click', '.listItemLeft', function () {

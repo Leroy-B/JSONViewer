@@ -1,26 +1,24 @@
+<!--
+    made by a wonderful team
+-->
+
 <!DOCTYPE html>
 <html>
     <head>
-        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
         <script src="assets/scripts.js"></script>
-        
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" type="text/css" href="assets/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-        
         <title>A JSON Editor</title>
-        
     </head>
     <body>
-        
         <div class="box">
             <img style="vertical-align:middle; height: auto; width: 45px;" src="assets/jsonTitel.png">
             <span style="">JSON Editor</span>
         </div>
-        
         <div class="flex_container">
             <div class="flex_box_25">
             </div>
@@ -36,7 +34,6 @@
             <div class="flex_box_25">
             </div>
         </div>
-        
         <div class="flex_container">
             <div class="flex_box_25">
             </div>
@@ -46,52 +43,41 @@
                     <button class="tablinks" onclick="openTab(event, 'tabAdd')">Add to the requested JSON&nbsp;<i class="far fa-plus-square"></i></button>
                     <button class="tablinks" onclick="openTab(event, 'tabEdit')">Edit the requested JSON&nbsp;<i class="fas fa-edit"></i></button>
                 </div>
-                
-                
                 <div class="flex_box_100 btnGroup">
                 </div>
-                
             </div>
             <div class="flex_box_25">
             </div>
         </div>
-        
-        
         <div class="flex_container">
             <div class="flex_container flex_box_100 tabcontent" id="tabAdd" style="display: none;">
                 <span class="columnTitel" style="margin-left: 45%;"><b>3.</b> Add a new dataset</span>
-                
-                    <div class="flex_container flex_box_100">
-                        <div class="flex_box_25" style="padding: 10px;">
-                        </div>
-
-                        <div class="btnGroup flex_box_50" id="listAddInputField" style="padding: 10px;">
-                            <form class="formForNewDataset">
-                                <ul id="ULlistAddInputFieldAlias">
-                                    <li id="listAddInputFieldAlias">
-                                        <div class="flex_box_100">
-                                            <input id="addInputFieldAlias" placeholder="alias:" class="addInputField" type="text" disabled>
-                                            <input id="addInputFieldAliasText" placeholder="" class="addInputField" type="text" name="alias" required autofocus>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-
-                        <div class="flex_box_25" style="padding: 10px;">
-                        </div>
+                <div class="flex_container flex_box_100">
+                    <div class="flex_box_25" style="padding: 10px;">
                     </div>
-
-                    <div class="flex_box_100">
-                        <div class="btnGroup" style="padding: 10px;width: 49.5%;">
-                            <button class="sendNewDatasetButton" type="submit">Send additions&nbsp;<i class="fas fa-angle-double-right"></i></button>
-                            <button class="addMoreFieldsButton">Add additional fields&nbsp;<i class="far fa-plus-square"></i></button>
-                        </div>
+                    <div class="btnGroup flex_box_50" id="listAddInputField" style="padding: 10px;">
+                        <form class="formForNewDataset">
+                            <ul id="ULlistAddInputFieldAlias">
+                                <li id="listAddInputFieldAlias">
+                                    <div class="flex_box_100">
+                                        <input id="addInputFieldAlias" placeholder="alias:" class="addInputField" type="text" disabled>
+                                        <input id="addInputFieldAliasText" placeholder="" class="addInputField" type="text" name="alias" required autofocus>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
                     </div>
+                    <div class="flex_box_25" style="padding: 10px;">
+                    </div>
+                </div>
+                <div class="flex_box_100">
+                    <div class="btnGroup" style="padding: 10px;width: 49.5%;">
+                        <button class="sendNewDatasetButton" type="submit">Send additions&nbsp;<i class="fas fa-angle-double-right"></i></button>
+                        <button class="addMoreFieldsButton">Add additional fields&nbsp;<i class="far fa-plus-square"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        
         <div class="flex_container">
             <div class="flex_container flex_box_100 tabcontent" id="tabEdit">
                 <div class="flex_container flex_box_100">
@@ -104,7 +90,6 @@
                             </ul>
                         </div>
                     </div>
-                    
                     <div class="flex_box_25">
                         <span class="columnTitel"><b>4.</b> Select attribute</span>
                         <div class="searchboxInList">
@@ -150,7 +135,6 @@
                 </div>
             </div>
         </div>
-
         <div id="loading" class="loader"></div>
     </body>
 </html>
